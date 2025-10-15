@@ -5,65 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FeelTuneAI - Coming Soon</title>
     <style>
-        /* Basic body styling */
+        /* Global Styles */
         body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212; /* Dark background */
-            color: #ffffff;
             flex-direction: column;
-            overflow: hidden;
-            position: relative;
+            background: linear-gradient(-45deg, #121212, #1DB954, #ff4d6d, #121212);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
         }
 
-        /* Glow side effects */
-        .glow {
+        /* Background Gradient Animation */
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* Glow Particles */
+        .particle {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.6;
-            animation: float 6s infinite alternate;
-        }
-        .glow-left {
-            background: #1DB954; /* Spotify green */
-            left: -50px;
-            top: 20%;
-        }
-        .glow-right {
-            background: #ff4d6d; /* Pinkish */
-            right: -50px;
-            bottom: 20%;
+            animation: float 10s infinite;
         }
 
         @keyframes float {
-            0% { transform: translateY(0px) translateX(0px); }
-            50% { transform: translateY(20px) translateX(10px); }
-            100% { transform: translateY(-20px) translateX(-10px); }
+            0% { transform: translateY(0px) translateX(0px);}
+            50% { transform: translateY(-50px) translateX(30px);}
+            100% { transform: translateY(0px) translateX(0px);}
         }
 
-        /* Text styles */
+        /* Heading & Text */
         h1 {
-            font-size: 3em;
+            font-size: 4em;
             margin: 0;
+            text-align: center;
+            text-shadow: 0 0 20px #1DB954, 0 0 40px #ff4d6d;
+            animation: fadeIn 2s ease forwards;
         }
+
         p {
-            font-size: 1.2em;
+            font-size: 1.3em;
             margin-top: 10px;
             text-align: center;
+            animation: fadeIn 3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* Social Icons Placeholder */
+        .social {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            animation: fadeIn 4s ease forwards;
+        }
+
+        .social a {
+            color: #fff;
+            font-size: 1.5em;
+            text-decoration: none;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .social a:hover {
+            color: #1DB954;
+            transform: scale(1.2);
         }
     </style>
 </head>
 <body>
-    <div class="glow glow-left"></div>
-    <div class="glow glow-right"></div>
 
     <h1>FeelTuneAI</h1>
-    <p>Coming Soon! Stay tuned for your mood-based music experience.</p>
+    <p>Coming Soon! Your mood-based music experience is on its way.</p>
+
+    <div class="social">
+        <a href="#" target="_blank">Spotify</a>
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">Twitter</a>
+    </div>
+
+    <!-- Particles -->
+    <div id="particles"></div>
+
+    <script>
+        // Generate random particles
+        const particleCount = 30;
+        const particlesContainer = document.getElementById('particles');
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.width = (Math.random() * 10 + 10) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            particle.style.background = `rgba(255,255,255,${Math.random() * 0.3 + 0.1})`;
+            particlesContainer.appendChild(particle);
+        }
+    </script>
 </body>
 </html>
