@@ -16,9 +16,10 @@
       color: #fff;
       overflow: hidden;
       position: relative;
+      text-align: center;
     }
 
-    /* Gradient overlay */
+    /* Animated Gradient Overlay */
     body::before {
       content: "";
       position: absolute;
@@ -46,12 +47,22 @@
       z-index: 2;
       width: 350px;
       text-align: center;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.1);
     }
 
     .login-container h1 {
       margin-bottom: 20px;
-      color: #1DB954;
-      text-shadow: 0 0 10px #1DB954;
+      font-size: 2.5em;
+      background: linear-gradient(90deg, #1DB954, #ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 5px #1DB954, 0 0 10px #ff4d6d; }
+      100% { text-shadow: 0 0 20px #1DB954, 0 0 30px #ff4d6d; }
     }
 
     .login-container input {
@@ -59,13 +70,17 @@
       padding: 12px 15px;
       margin: 10px 0;
       border-radius: 6px;
-      border: none;
-      outline: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(30,30,30,0.6);
+      color: #fff;
       font-size: 1em;
+      outline: none;
+      transition: 0.3s;
     }
 
-    .login-container input[type="password"] {
-      letter-spacing: 2px;
+    .login-container input:focus {
+      border-color: #1DB954;
+      box-shadow: 0 0 10px #1DB954;
     }
 
     .login-container button {
@@ -133,12 +148,10 @@
     const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev";
 
     function continueGuest() {
-      // Directly redirect guest
       window.location.href = liveURL;
     }
 
     function login() {
-      // Simple validation
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const password = document.getElementById('password').value.trim();
@@ -148,9 +161,6 @@
         return;
       }
 
-      // You can add more advanced validation or backend connection here
-
-      // For now, redirect to live website after login
       alert(`Welcome, ${name}! Redirecting...`);
       window.location.href = liveURL;
     }
