@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FeelTuneAI - Live Now</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeelTuneAI - Login</title>
   <style>
     /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body {
       height: 100vh;
-      width: 100%;
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
-      background: radial-gradient(circle at top left, #121212, #000);
-      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+      background: radial-gradient(circle at top left, #121212, #000);
+      color: #fff;
+      overflow: hidden;
       position: relative;
-      text-align: center;
     }
 
-    /* Animated Gradient Overlay */
+    /* Gradient overlay */
     body::before {
       content: "";
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top:0; left:0;
+      width:100%; height:100%;
       background: linear-gradient(45deg, #1DB954, #ff4d6d, #121212, #1DB954);
       background-size: 400% 400%;
       animation: gradientMove 15s ease infinite;
-      opacity: 0.3; z-index: 0;
+      opacity: 0.3; z-index:0;
     }
 
     @keyframes gradientMove {
@@ -40,111 +36,131 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Title and Subtitle */
-    h1 { font-size: 4em; text-shadow: 0 0 25px #1DB954, 0 0 45px #ff4d6d; animation: fadeIn 2s ease forwards; z-index: 2; }
-    p { font-size: 1.5em; margin-top: 15px; animation: fadeIn 3s ease forwards; z-index: 2; }
-
-    /* Glowing live button */
-    .live-btn {
-      margin-top: 30px; padding: 15px 40px;
-      font-size: 1.3em; color: #fff;
-      background: linear-gradient(90deg, #1DB954, #ff4d6d);
-      border: none; border-radius: 30px;
-      cursor: pointer; text-decoration: none;
-      transition: transform 0.3s, box-shadow 0.3s;
+    /* Login Container */
+    .login-container {
+      position: relative;
+      background: rgba(20,20,20,0.85);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
       z-index: 2;
-      animation: pulse 2s infinite;
-    }
-    .live-btn:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 20px #1DB954, 0 0 30px #ff4d6d;
+      width: 350px;
+      text-align: center;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px #1DB954, 0 0 20px #ff4d6d; transform: scale(1); }
-      50% { box-shadow: 0 0 20px #1DB954, 0 0 40px #ff4d6d; transform: scale(1.05); }
-      100% { box-shadow: 0 0 10px #1DB954, 0 0 20px #ff4d6d; transform: scale(1); }
+    .login-container h1 {
+      margin-bottom: 20px;
+      color: #1DB954;
+      text-shadow: 0 0 10px #1DB954;
     }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Particle Glow */
-    .particle {
-      position: absolute; border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      animation: float 10s infinite ease-in-out;
-      z-index: 1;
+    .login-container input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      font-size: 1em;
     }
-    @keyframes float { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-40px) translateX(30px); } }
 
-    /* Music Wave Animation */
-    .wave { display: flex; position: relative; height: 60px; margin-top: 40px; z-index: 2; }
-    .wave span { display: block; width: 6px; height: 100%; margin: 0 4px; background: linear-gradient(180deg, #1DB954, #ff4d6d); border-radius: 10px; animation: bounce 1s ease infinite; }
-    .wave span:nth-child(2) { animation-delay: 0.1s; }
-    .wave span:nth-child(3) { animation-delay: 0.2s; }
-    .wave span:nth-child(4) { animation-delay: 0.3s; }
-    .wave span:nth-child(5) { animation-delay: 0.4s; }
-    @keyframes bounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+    .login-container input[type="password"] {
+      letter-spacing: 2px;
+    }
 
-    /* Developer credit */
-    .credit { position: absolute; bottom: 20px; right: 25px; font-size: 0.9em; opacity: 0.8; letter-spacing: 1px; z-index: 3; }
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      background: linear-gradient(90deg, #1DB954, #ff4d6d);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .login-container button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #1DB954, 0 0 25px #ff4d6d;
+    }
+
+    .guest-btn {
+      margin-top: 15px;
+      background: transparent;
+      border: 2px solid #1DB954;
+      color: #1DB954;
+    }
+
+    .guest-btn:hover {
+      background: #1DB954;
+      color: #000;
+      border: 2px solid #1DB954;
+    }
+
+    .credit { position: absolute; bottom: 20px; right: 25px; font-size: 0.9em; opacity: 0.8; letter-spacing: 1px; z-index: 2; }
     .credit span { color: #1DB954; font-weight: 600; }
 
-    /* Mouse light effect */
-    .light { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%); pointer-events: none; mix-blend-mode: screen; transform: translate(-50%, -50%); z-index: 2; }
-
-    /* Confetti */
-    .confetti { position: absolute; width: 10px; height: 10px; background: #1DB954; z-index: 3; opacity: 0.8; }
+    .light {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
   <div class="light"></div>
 
-  <h1>FeelTuneAI</h1>
-  <p>We're Live! Explore the music experience now.</p>
-  <a href="https://splenic-unavid-marinda.ngrok-free.dev" class="live-btn" target="_blank">Go to Website Now</a>
-
-  <div class="wave">
-    <span></span><span></span><span></span><span></span><span></span>
+  <div class="login-container">
+    <h1>FeelTuneAI</h1>
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="tel" id="phone" placeholder="Phone Number" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <button class="guest-btn" onclick="continueGuest()">Continue as Guest</button>
   </div>
 
   <div class="credit">Developed by <span>AETHERION</span> TEAM</div>
-  <div id="particles"></div>
 
   <script>
+    const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev";
+
+    function continueGuest() {
+      // Directly redirect guest
+      window.location.href = liveURL;
+    }
+
+    function login() {
+      // Simple validation
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if(!name || !phone || !password){
+        alert("Please fill all fields.");
+        return;
+      }
+
+      // You can add more advanced validation or backend connection here
+
+      // For now, redirect to live website after login
+      alert(`Welcome, ${name}! Redirecting...`);
+      window.location.href = liveURL;
+    }
+
     // Mouse light effect
     const light = document.querySelector('.light');
-    document.addEventListener('mousemove', e => { light.style.left = e.clientX + 'px'; light.style.top = e.clientY + 'px'; });
-
-    // Floating particles
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 25; i++) {
-      const p = document.createElement('div'); p.classList.add('particle');
-      p.style.top = Math.random() * window.innerHeight + 'px';
-      p.style.left = Math.random() * window.innerWidth + 'px';
-      p.style.width = p.style.height = (Math.random() * 8 + 4) + 'px';
-      p.style.animationDuration = (Math.random() * 10 + 5) + 's';
-      particlesContainer.appendChild(p);
-    }
-
-    // Confetti burst on load
-    function createConfetti() {
-      for(let i=0;i<100;i++){
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random()*window.innerWidth + 'px';
-        confetti.style.top = Math.random()*window.innerHeight + 'px';
-        confetti.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
-        confetti.style.width = confetti.style.height = Math.random()*10+5+'px';
-        document.body.appendChild(confetti);
-        confetti.animate([
-          { transform: `translateY(0px) rotate(0deg)` },
-          { transform: `translateY(${window.innerHeight + 50}px) rotate(${Math.random()*720}deg)` }
-        ], { duration: Math.random()*3000+2000, iterations: 1, easing: 'ease-out' });
-        setTimeout(()=>confetti.remove(), 3000);
-      }
-    }
-    window.onload = createConfetti;
+    document.addEventListener('mousemove', e => {
+      light.style.left = e.clientX + 'px';
+      light.style.top = e.clientY + 'px';
+    });
   </script>
 </body>
 </html>
