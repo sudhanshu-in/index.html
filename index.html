@@ -41,6 +41,7 @@
     transform: translate(-50%,-50%);
     z-index:1;
   }
+
   .container{
     position: relative;
     background: rgba(20,20,20,0.85);
@@ -96,11 +97,50 @@
   .quote{ margin-top:20px; font-size:1em; font-style:italic; opacity:0.8; }
   .credit{ position:absolute; bottom:20px; right:25px; font-size:0.9em; opacity:0.8; letter-spacing:1px; z-index:2; }
   .credit span{ color:#1DB954; font-weight:600; }
+
+  /* Particles */
+  .particle{
+    position:absolute;
+    border-radius:50%;
+    background: rgba(255,255,255,0.15);
+    animation: float 10s infinite ease-in-out;
+    z-index:1;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0) translateX(0); }
+    50%{ transform: translateY(-40px) translateX(30px); }
+  }
+
+  /* Music Wave */
+  .wave{
+    display:flex;
+    justify-content:center;
+    height:60px;
+    margin-top:20px;
+    z-index:2;
+  }
+  .wave span{
+    display:block;
+    width:6px;
+    height:100%;
+    margin:0 4px;
+    background: linear-gradient(180deg, #1DB954, #ff4d6d);
+    border-radius:10px;
+    animation:bounce 1s ease infinite;
+  }
+  .wave span:nth-child(2){ animation-delay:0.1s; }
+  .wave span:nth-child(3){ animation-delay:0.2s; }
+  .wave span:nth-child(4){ animation-delay:0.3s; }
+  .wave span:nth-child(5){ animation-delay:0.4s; }
+  @keyframes bounce{ 0%,100%{ transform:scaleY(0.3); } 50%{ transform:scaleY(1); } }
+
 </style>
 </head>
 <body>
 <div class="light"></div>
+<div id="particles"></div>
 
+<!-- Login Page -->
 <div class="container" id="loginPage">
   <h1>FeelTuneAI</h1>
   <input type="text" id="name" placeholder="Name" required>
@@ -110,49 +150,66 @@
   <button class="guest-btn" onclick="continueGuest()">Continue as Guest</button>
 </div>
 
+<!-- Welcome Page -->
 <div class="container" id="welcomePage" style="display:none;">
   <h1 id="welcomeText"></h1>
-  <p class="quote" id="quoteText">"Music gives a soul to the universe, wings to the mind, flight to the imagination and life to everything." - Plato</p>
+  <p class="quote" id="quoteText"></p>
+  <div class="wave">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
   <button onclick="goToSite()">Go to Website</button>
 </div>
 
 <div class="credit">Developed by <span>AETHERION</span> TEAM</div>
 
 <script>
-  const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev";
+const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev";
 
-  // Mouse light effect
-  const light = document.querySelector('.light');
-  document.addEventListener('mousemove', e => {
-    light.style.left = e.clientX + 'px';
-    light.style.top = e.clientY + 'px';
-  });
+// Mouse light effect
+const light = document.querySelector('.light');
+document.addEventListener('mousemove', e => {
+  light.style.left = e.clientX + 'px';
+  light.style.top = e.clientY + 'px';
+});
 
-  function continueGuest(){
-    // Show welcome page for guest
-    document.getElementById('loginPage').style.display='none';
-    document.getElementById('welcomePage').style.display='block';
-    document.getElementById('welcomeText').innerText = "WELCOME GUEST";
-    document.getElementById('quoteText').innerText = "\"Music is the universal language of mankind.\" - Henry Wadsworth Longfellow";
+// Floating particles
+const particlesContainer = document.getElementById('particles');
+const count = 30;
+for(let i=0;i<count;i++){
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.top = Math.random()*window.innerHeight+'px';
+  p.style.left = Math.random()*window.innerWidth+'px';
+  p.style.width = p.style.height = (Math.random()*8+4)+'px';
+  p.style.animationDuration = (Math.random()*10+5)+'s';
+  particlesContainer.appendChild(p);
+}
+
+// Functions
+function continueGuest(){
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('welcomePage').style.display='block';
+  document.getElementById('welcomeText').innerText="WELCOME GUEST";
+  document.getElementById('quoteText').innerText="\"Music is the universal language of mankind.\" - Henry Wadsworth Longfellow";
+}
+
+function login(){
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value.trim();
+  if(!name || !phone || !password){
+    alert("Please fill all fields.");
+    return;
   }
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('welcomePage').style.display='block';
+  document.getElementById('welcomeText').innerText=`NAMASTE ${name.toUpperCase()}`;
+  document.getElementById('quoteText').innerText="\"Where words fail, music speaks.\" - Hans Christian Andersen";
+}
 
-  function login(){
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const password = document.getElementById('password').value.trim();
-    if(!name || !phone || !password){
-      alert("Please fill all fields.");
-      return;
-    }
-    document.getElementById('loginPage').style.display='none';
-    document.getElementById('welcomePage').style.display='block';
-    document.getElementById('welcomeText').innerText = `NAMASTE ${name.toUpperCase()}`;
-    document.getElementById('quoteText').innerText = "\"Where words fail, music speaks.\" - Hans Christian Andersen";
-  }
-
-  function goToSite(){
-    window.location.href = liveURL;
-  }
+function goToSite(){
+  window.location.href=liveURL;
+}
 </script>
 </body>
 </html>
