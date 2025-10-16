@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FeelTuneAI - Coming Soon</title>
+  <title>FeelTuneAI - Live Now</title>
   <style>
     /* Basic Reset */
     * {
@@ -24,6 +24,7 @@
       align-items: center;
       flex-direction: column;
       position: relative;
+      text-align: center;
     }
 
     /* Animated Gradient Overlay */
@@ -56,32 +57,30 @@
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 1.5em;
       margin-top: 15px;
-      text-align: center;
       animation: fadeIn 3s ease forwards;
       z-index: 2;
     }
 
-    /* Social Links */
-    .social {
-      margin-top: 25px;
-      display: flex;
-      gap: 25px;
-      animation: fadeIn 4s ease forwards;
+    /* Live button */
+    .live-btn {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: #fff;
+      background: linear-gradient(90deg, #1DB954, #ff4d6d);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
       z-index: 2;
     }
 
-    .social a {
-      color: #fff;
-      font-size: 1.3em;
-      text-decoration: none;
-      transition: transform 0.3s, color 0.3s;
-    }
-
-    .social a:hover {
-      color: #1DB954;
-      transform: scale(1.2);
+    .live-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #1DB954, 0 0 25px #ff4d6d;
     }
 
     @keyframes fadeIn {
@@ -166,7 +165,9 @@
   <div class="light"></div>
 
   <h1>FeelTuneAI</h1>
-  <p>Coming Soon! Your mood-based music experience is almost here.</p>
+  <p>We're Live! Click below to explore our music experience.</p>
+
+  <a href="https://your-live-website-link.com" class="live-btn" target="_blank">Go to Website</a>
 
   <div class="wave">
     <span></span>
@@ -174,12 +175,6 @@
     <span></span>
     <span></span>
     <span></span>
-  </div>
-
-  <div class="social">
-    <a href="#" target="_blank">Spotify</a>
-    <a href="#" target="_blank">Instagram</a>
-    <a href="#" target="_blank">Twitter</a>
   </div>
 
   <div class="credit">Developed by <span>AETHERION</span> TEAM</div>
@@ -208,6 +203,11 @@
       p.style.animationDuration = (Math.random() * 10 + 5) + 's';
       particlesContainer.appendChild(p);
     }
+
+    // Optional: Auto-redirect after 3 seconds
+    // setTimeout(() => {
+    //   window.location.href = "https://your-live-website-link.com";
+    // }, 3000);
   </script>
 </body>
 </html>
