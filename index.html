@@ -1,176 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FeelTuneAI - Login</title>
-  <style>
-    /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top left, #121212, #000);
-      color: #fff;
-      overflow: hidden;
-      position: relative;
-      text-align: center;
-    }
-
-    /* Animated Gradient Overlay */
-    body::before {
-      content: "";
-      position: absolute;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: linear-gradient(45deg, #1DB954, #ff4d6d, #121212, #1DB954);
-      background-size: 400% 400%;
-      animation: gradientMove 15s ease infinite;
-      opacity: 0.3; z-index:0;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Login Container */
-    .login-container {
-      position: relative;
-      background: rgba(20,20,20,0.85);
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
-      z-index: 2;
-      width: 350px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255,255,255,0.1);
-    }
-
-    .login-container h1 {
-      margin-bottom: 20px;
-      font-size: 2.5em;
-      background: linear-gradient(90deg, #1DB954, #ff4d6d);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: textGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 5px #1DB954, 0 0 10px #ff4d6d; }
-      100% { text-shadow: 0 0 20px #1DB954, 0 0 30px #ff4d6d; }
-    }
-
-    .login-container input {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.3);
-      background: rgba(30,30,30,0.6);
-      color: #fff;
-      font-size: 1em;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    .login-container input:focus {
-      border-color: #1DB954;
-      box-shadow: 0 0 10px #1DB954;
-    }
-
-    .login-container button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 6px;
-      font-size: 1em;
-      background: linear-gradient(90deg, #1DB954, #ff4d6d);
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .login-container button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #1DB954, 0 0 25px #ff4d6d;
-    }
-
-    .guest-btn {
-      margin-top: 15px;
-      background: transparent;
-      border: 2px solid #1DB954;
-      color: #1DB954;
-    }
-
-    .guest-btn:hover {
-      background: #1DB954;
-      color: #000;
-      border: 2px solid #1DB954;
-    }
-
-    .credit { position: absolute; bottom: 20px; right: 25px; font-size: 0.9em; opacity: 0.8; letter-spacing: 1px; z-index: 2; }
-    .credit span { color: #1DB954; font-weight: 600; }
-
-    .light {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
-      pointer-events: none;
-      mix-blend-mode: screen;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FeelTuneAI</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
+  body {
+    height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top left, #121212, #000);
+    overflow:hidden;
+    position:relative;
+    text-align:center;
+    color:#fff;
+  }
+  body::before {
+    content:"";
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: linear-gradient(45deg, #1DB954, #ff4d6d, #121212, #1DB954);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    opacity:0.3; z-index:0;
+  }
+  @keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  .light{
+    position:absolute;
+    width:150px; height:150px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+    pointer-events:none;
+    mix-blend-mode: screen;
+    transform: translate(-50%,-50%);
+    z-index:1;
+  }
+  .container{
+    position: relative;
+    background: rgba(20,20,20,0.85);
+    padding: 40px 30px;
+    border-radius:12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    z-index:2;
+    width:350px;
+    backdrop-filter: blur(10px);
+    border:2px solid rgba(255,255,255,0.1);
+    text-align:center;
+  }
+  .container h1{
+    margin-bottom:20px;
+    font-size:2.5em;
+    background: linear-gradient(90deg, #1DB954, #ff4d6d);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:textGlow 2s ease-in-out infinite alternate;
+  }
+  @keyframes textGlow{
+    0%{ text-shadow:0 0 5px #1DB954,0 0 10px #ff4d6d; }
+    100%{ text-shadow:0 0 20px #1DB954,0 0 30px #ff4d6d; }
+  }
+  input{
+    width:100%;
+    padding:12px 15px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.3);
+    background: rgba(30,30,30,0.6);
+    color:#fff;
+    font-size:1em;
+    outline:none;
+    transition:0.3s;
+  }
+  input:focus{ border-color:#1DB954; box-shadow:0 0 10px #1DB954; }
+  button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    border-radius:6px;
+    font-size:1em;
+    background:linear-gradient(90deg,#1DB954,#ff4d6d);
+    color:#fff;
+    cursor:pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  button:hover{ transform:scale(1.05); box-shadow:0 0 15px #1DB954,0 0 25px #ff4d6d; }
+  .guest-btn{ margin-top:15px; background:transparent; border:2px solid #1DB954; color:#1DB954; }
+  .guest-btn:hover{ background:#1DB954; color:#000; border:2px solid #1DB954; }
+  .quote{ margin-top:20px; font-size:1em; font-style:italic; opacity:0.8; }
+  .credit{ position:absolute; bottom:20px; right:25px; font-size:0.9em; opacity:0.8; letter-spacing:1px; z-index:2; }
+  .credit span{ color:#1DB954; font-weight:600; }
+</style>
 </head>
 <body>
-  <div class="light"></div>
+<div class="light"></div>
 
-  <div class="login-container">
-    <h1>FeelTuneAI</h1>
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="tel" id="phone" placeholder="Phone Number" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button onclick="login()">Login</button>
-    <button class="guest-btn" onclick="continueGuest()">Continue as Guest</button>
-  </div>
+<div class="container" id="loginPage">
+  <h1>FeelTuneAI</h1>
+  <input type="text" id="name" placeholder="Name" required>
+  <input type="tel" id="phone" placeholder="Phone Number" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button onclick="login()">Login</button>
+  <button class="guest-btn" onclick="continueGuest()">Continue as Guest</button>
+</div>
 
-  <div class="credit">Developed by <span>AETHERION</span> TEAM</div>
+<div class="container" id="welcomePage" style="display:none;">
+  <h1 id="welcomeText"></h1>
+  <p class="quote" id="quoteText">"Music gives a soul to the universe, wings to the mind, flight to the imagination and life to everything." - Plato</p>
+  <button onclick="goToSite()">Go to Website</button>
+</div>
 
-  <script>
-    const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev";
+<div class="credit">Developed by <span>AETHERION</span> TEAM</div>
 
-    function continueGuest() {
-      window.location.href = liveURL;
+<script>
+  const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev";
+
+  // Mouse light effect
+  const light = document.querySelector('.light');
+  document.addEventListener('mousemove', e => {
+    light.style.left = e.clientX + 'px';
+    light.style.top = e.clientY + 'px';
+  });
+
+  function continueGuest(){
+    // Show welcome page for guest
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('welcomePage').style.display='block';
+    document.getElementById('welcomeText').innerText = "WELCOME GUEST";
+    document.getElementById('quoteText').innerText = "\"Music is the universal language of mankind.\" - Henry Wadsworth Longfellow";
+  }
+
+  function login(){
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    if(!name || !phone || !password){
+      alert("Please fill all fields.");
+      return;
     }
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('welcomePage').style.display='block';
+    document.getElementById('welcomeText').innerText = `WELCOME ${name.toUpperCase()}`;
+    document.getElementById('quoteText').innerText = "\"Where words fail, music speaks.\" - Hans Christian Andersen";
+  }
 
-    function login() {
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if(!name || !phone || !password){
-        alert("Please fill all fields.");
-        return;
-      }
-
-      alert(`Welcome, ${name}! Redirecting...`);
-      window.location.href = liveURL;
-    }
-
-    // Mouse light effect
-    const light = document.querySelector('.light');
-    document.addEventListener('mousemove', e => {
-      light.style.left = e.clientX + 'px';
-      light.style.top = e.clientY + 'px';
-    });
-  </script>
+  function goToSite(){
+    window.location.href = liveURL;
+  }
+</script>
 </body>
 </html>
