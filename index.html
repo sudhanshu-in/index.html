@@ -11,31 +11,35 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    background: radial-gradient(circle at top left, #121212, #000);
+    background: radial-gradient(circle at top left, #0a0f2c, #000);
     overflow:hidden;
     position:relative;
     text-align:center;
     color:#fff;
   }
+
+  /* Animated gradient overlay */
   body::before {
     content:"";
     position:absolute; top:0; left:0;
     width:100%; height:100%;
-    background: linear-gradient(45deg, #1DB954, #ff4d6d, #121212, #1DB954);
+    background: linear-gradient(45deg, #00e0ff, #7a00ff, #0a0f2c, #00e0ff);
     background-size: 400% 400%;
-    animation: gradientMove 15s ease infinite;
-    opacity:0.3; z-index:0;
+    animation: gradientMove 18s ease infinite;
+    opacity:0.25; z-index:0;
   }
+
   @keyframes gradientMove{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
   }
+
   .light{
     position:absolute;
     width:150px; height:150px;
     border-radius:50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+    background: radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
     pointer-events:none;
     mix-blend-mode: screen;
     transform: translate(-50%,-50%);
@@ -44,71 +48,96 @@
 
   .container{
     position: relative;
-    background: rgba(20,20,20,0.85);
-    padding: 40px 30px;
-    border-radius:12px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    background: rgba(15,15,40,0.6);
+    padding: 45px 35px;
+    border-radius:14px;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
     z-index:2;
-    width:350px;
-    backdrop-filter: blur(10px);
-    border:2px solid rgba(255,255,255,0.1);
+    width:370px;
+    backdrop-filter: blur(20px);
+    border:1px solid rgba(255,255,255,0.15);
     text-align:center;
   }
+
   .container h1{
     margin-bottom:20px;
-    font-size:2.5em;
-    background: linear-gradient(90deg, #1DB954, #ff4d6d);
+    font-size:2.6em;
+    background: linear-gradient(90deg, #00e0ff, #c300ff);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
     animation:textGlow 2s ease-in-out infinite alternate;
   }
+
   @keyframes textGlow{
-    0%{ text-shadow:0 0 5px #1DB954,0 0 10px #ff4d6d; }
-    100%{ text-shadow:0 0 20px #1DB954,0 0 30px #ff4d6d; }
+    0%{ text-shadow:0 0 5px #00e0ff,0 0 15px #7a00ff; }
+    100%{ text-shadow:0 0 25px #00e0ff,0 0 35px #c300ff; }
   }
+
   input{
     width:100%;
     padding:12px 15px;
     margin:10px 0;
-    border-radius:6px;
-    border:1px solid rgba(255,255,255,0.3);
-    background: rgba(30,30,30,0.6);
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.2);
+    background: rgba(30,30,60,0.5);
     color:#fff;
     font-size:1em;
     outline:none;
     transition:0.3s;
   }
-  input:focus{ border-color:#1DB954; box-shadow:0 0 10px #1DB954; }
+
+  input:focus{
+    border-color:#00e0ff;
+    box-shadow:0 0 10px #00e0ff;
+  }
+
   button{
     width:100%;
     padding:12px;
     margin-top:15px;
     border:none;
-    border-radius:6px;
+    border-radius:8px;
     font-size:1em;
-    background:linear-gradient(90deg,#1DB954,#ff4d6d);
+    background:linear-gradient(90deg,#00e0ff,#c300ff);
     color:#fff;
     cursor:pointer;
     transition: transform 0.3s, box-shadow 0.3s;
   }
-  button:hover{ transform:scale(1.05); box-shadow:0 0 15px #1DB954,0 0 25px #ff4d6d; }
-  .guest-btn{ margin-top:15px; background:transparent; border:2px solid #1DB954; color:#1DB954; }
-  .guest-btn:hover{ background:#1DB954; color:#000; border:2px solid #1DB954; }
+
+  button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px #00e0ff,0 0 35px #c300ff;
+  }
+
+  .guest-btn{
+    margin-top:15px;
+    background:transparent;
+    border:2px solid #00e0ff;
+    color:#00e0ff;
+  }
+
+  .guest-btn:hover{
+    background:#00e0ff;
+    color:#000;
+    border:2px solid #00e0ff;
+  }
+
   .quote{ margin-top:20px; font-size:1em; font-style:italic; opacity:0.8; }
   .credit{ position:absolute; bottom:20px; right:25px; font-size:0.9em; opacity:0.8; letter-spacing:1px; z-index:2; }
-  .credit span{ color:#1DB954; font-weight:600; }
+  .credit span{ color:#00e0ff; font-weight:600; }
 
   /* Particles */
   .particle{
     position:absolute;
     border-radius:50%;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.12);
     animation: float 10s infinite ease-in-out;
     z-index:1;
   }
+
   @keyframes float{
     0%,100%{ transform: translateY(0) translateX(0); }
-    50%{ transform: translateY(-40px) translateX(30px); }
+    50%{ transform: translateY(-50px) translateX(40px); }
   }
 
   /* Music Wave */
@@ -119,20 +148,26 @@
     margin-top:20px;
     z-index:2;
   }
+
   .wave span{
     display:block;
     width:6px;
     height:100%;
     margin:0 4px;
-    background: linear-gradient(180deg, #1DB954, #ff4d6d);
+    background: linear-gradient(180deg, #00e0ff, #c300ff);
     border-radius:10px;
     animation:bounce 1s ease infinite;
   }
+
   .wave span:nth-child(2){ animation-delay:0.1s; }
   .wave span:nth-child(3){ animation-delay:0.2s; }
   .wave span:nth-child(4){ animation-delay:0.3s; }
   .wave span:nth-child(5){ animation-delay:0.4s; }
-  @keyframes bounce{ 0%,100%{ transform:scaleY(0.3); } 50%{ transform:scaleY(1); } }
+
+  @keyframes bounce{
+    0%,100%{ transform:scaleY(0.3); }
+    50%{ transform:scaleY(1); }
+  }
 
 </style>
 </head>
@@ -190,7 +225,7 @@ function continueGuest(){
   document.getElementById('loginPage').style.display='none';
   document.getElementById('welcomePage').style.display='block';
   document.getElementById('welcomeText').innerText="WELCOME GUEST";
-  document.getElementById('quoteText').innerText="\"Music is the universal language of mankind.\" - Henry Wadsworth Longfellow";
+  document.getElementById('quoteText').innerText="“Music is the universal language of mankind.” – Henry Wadsworth Longfellow";
 }
 
 function login(){
@@ -203,8 +238,8 @@ function login(){
   }
   document.getElementById('loginPage').style.display='none';
   document.getElementById('welcomePage').style.display='block';
-  document.getElementById('welcomeText').innerText=`NAMASTE ${name.toUpperCase()}`;
-  document.getElementById('quoteText').innerText="\"Where words fail, music speaks.\" - Hans Christian Andersen";
+  document.getElementById('welcomeText').innerText=`WELCOME ${name.toUpperCase()}`;
+  document.getElementById('quoteText').innerText="“Where words fail, music speaks.” – Hans Christian Andersen";
 }
 
 function goToSite(){
