@@ -164,6 +164,20 @@
     .music-toggle:hover {
       background: linear-gradient(120deg, #1DB954, #ff2fa0);
     }
+
+    /* Enter FeelTune AI Experience button */
+    #enter-btn {
+      opacity: 0;
+      margin-top: 35px;
+      font-weight: bold;
+      font-size: 1.2em;
+      transition: opacity 1.5s ease, transform 0.5s ease;
+    }
+
+    #enter-btn.fade-in-btn {
+      opacity: 1;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -172,6 +186,7 @@
 
   <button class="music-toggle" id="music-toggle">🔊 Music: On</button>
 
+  <!-- Login Page -->
   <div class="container" id="login-page">
     <h1>FeelTuneAI</h1>
     <input type="text" id="name" placeholder="Your Name" class="btn" />
@@ -181,14 +196,17 @@
     <button class="btn" onclick="continueGuest()">Continue as Guest</button>
   </div>
 
+  <!-- Welcome Page -->
   <div class="container hidden" id="welcome-page">
     <h1 id="welcome-text">WELCOME</h1>
     <div class="wave">
       <span></span><span></span><span></span><span></span><span></span>
     </div>
     <p class="quote" id="quote"></p>
+    <button class="btn" id="enter-btn" onclick="enterExperience()">Enter FeelTune AI Experience →</button>
   </div>
 
+  <!-- Background music -->
   <audio id="bg-music" loop autoplay>
     <source src="https://cdn.pixabay.com/download/audio/2023/04/17/audio_7a3ed63cde.mp3" type="audio/mp3">
   </audio>
@@ -220,6 +238,7 @@
     const quoteText = document.getElementById('quote');
     const music = document.getElementById('bg-music');
     const musicToggle = document.getElementById('music-toggle');
+    const enterBtn = document.getElementById('enter-btn');
 
     music.volume = 0.4;
 
@@ -231,6 +250,11 @@
         welcomePage.classList.add('fade-in');
         welcomeText.textContent = `WELCOME ${name.toUpperCase()}`;
         quoteText.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+        // Fade in cinematic CTA after welcome and quote appear
+        setTimeout(() => {
+          enterBtn.classList.add('fade-in-btn');
+        }, 1200);
       }, 800);
     }
 
@@ -241,6 +265,10 @@
 
     function continueGuest() {
       transitionToWelcome("GUEST");
+    }
+
+    function enterExperience() {
+      window.location.href = "https://splenic-unavid-marinda.ngrok-free.dev";
     }
 
     musicToggle.addEventListener('click', () => {
