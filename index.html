@@ -1,407 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FeelTuneAI — Cinematic Login</title>
-<style>
-  :root{
-    --bg1:#05060b;
-    --bg2:#0a0620;
-    --neon-green:#00ff88;   /* primary neon green */
-    --magenta:#ff2d9c;      /* primary magenta */
-    --glass: rgba(255,255,255,0.04);
-    --card: rgba(10,8,20,0.65);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FeelTuneAI - Cinematic Experience</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-  *{box-sizing:border-box;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  html,body{height:100%;margin:0;background:var(--bg1);color:#fff;overflow:hidden}
-  /* Animated flowing gradient backdrop */
-  body::before{
-    content:"";position:fixed;inset:0;z-index:0;
-    background:linear-gradient(120deg, rgba(0,255,136,0.06), rgba(255,45,156,0.06) 40%, rgba(0,255,136,0.04) 80%);
-    mix-blend-mode:screen;
-    filter: blur(40px) saturate(120%);
-    animation: flow 18s linear infinite;
-    transform-origin:center;
-  }
-  @keyframes flow{
-    0%{transform:translate3d(-6%,0,0) rotate(0deg)}
-    50%{transform:translate3d(6%,0,0) rotate(2deg)}
-    100%{transform:translate3d(-6%,0,0) rotate(0deg)}
-  }
+    body {
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at top left, #0a0a0a, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: #fff;
+      transition: background 2s ease;
+      perspective: 1000px;
+    }
 
-  /* center layout */
-  .stage{position:relative;z-index:2;height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-  .card{
-    width:380px;max-width:92vw;border-radius:14px;background:var(--card);backdrop-filter: blur(12px) saturate(140%);
-    border:1px solid rgba(255,255,255,0.04); padding:36px; box-shadow:0 10px 40px rgba(0,0,0,0.6);
-    transition:transform .6s cubic-bezier(.2,.9,.2,1), opacity .4s ease;
-  }
+    /* Animated gradient layer with parallax motion */
+    .bg-layer {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, #1DB954, #ff2fa0, #101010, #1DB954);
+      background-size: 400% 400%;
+      animation: flow 15s ease infinite;
+      opacity: 0.25;
+      transform: translateZ(-200px) scale(1.2);
+      transition: transform 0.3s ease-out;
+      z-index: 0;
+    }
 
-  /* title glow */
-  .brand{
-    font-size:2.6rem;line-height:1;color:transparent;
-    background:linear-gradient(90deg,var(--neon-green),var(--magenta));
-    -webkit-background-clip:text;background-clip:text;
-    text-shadow:0 6px 30px rgba(0,255,136,0.06);
-    letter-spacing:0.5px;margin-bottom:18px;text-align:center;
-  }
+    @keyframes flow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  /* inputs */
-  .field{width:100%;display:block;margin:10px 0}
-  input[type="text"],input[type="tel"],input[type="password"]{
-    width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    color:#eff6ff;font-size:1rem;outline:none;transition:box-shadow .18s, border-color .18s;
-  }
-  input:focus{box-shadow: 0 0 18px rgba(0,255,136,0.07);border-color: rgba(0,255,136,0.7)}
+    .container {
+      text-align: center;
+      z-index: 2;
+      animation: fadeIn 2s ease forwards;
+      position: relative;
+    }
 
-  /* big neon button */
-  .btn{
-    display:inline-block;width:100%;padding:12px;border-radius:10px;border:0;margin-top:14px;
-    background:linear-gradient(90deg,var(--neon-green),var(--magenta)); color:#021; font-weight:600; cursor:pointer;
-    box-shadow:0 6px 30px rgba(0,255,136,0.06), inset 0 -2px 12px rgba(0,0,0,0.2);
-    transition:transform .18s ease, box-shadow .18s ease;
-    position:relative; overflow:hidden;
-  }
-  .btn:active{transform:scale(.99)}
-  .btn:hover{box-shadow:0 12px 60px rgba(0,255,136,0.12); transform:translateY(-2px)}
+    h1 {
+      font-size: 3.5em;
+      text-shadow: 0 0 25px #1DB954, 0 0 45px #ff2fa0;
+      margin-bottom: 20px;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
 
-  /* outline guest button */
-  .guest{
-    margin-top:12px;padding:10px;border-radius:10px;border:1px solid rgba(0,255,136,0.35);
-    background:transparent;color:var(--neon-green);cursor:pointer;width:100%;
-    transition:all .18s ease;
-  }
-  .guest:hover{background:rgba(0,255,136,0.08); color:#dfffe6}
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #1DB954; }
+      to { text-shadow: 0 0 35px #ff2fa0; }
+    }
 
-  /* top controls: audio toggle */
-  .controls{position:fixed;top:18px;right:18px;z-index:6;display:flex;gap:10px;align-items:center}
-  .audio-toggle{
-    width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); cursor:pointer; color:var(--neon-green);
-    box-shadow:0 6px 20px rgba(0,0,0,0.5)
-  }
+    .btn {
+      display: block;
+      margin: 10px auto;
+      padding: 12px 28px;
+      font-size: 1.1em;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(6px);
+      width: 230px;
+    }
 
-  /* mouse light */
-  .light{position:fixed;pointer-events:none;width:220px;height:220px;border-radius:50%;z-index:1;mix-blend-mode:screen;
-    background: radial-gradient(circle, rgba(0,255,136,0.08), rgba(255,45,156,0.06) 40%, transparent 60%);filter:blur(20px);
-    transform:translate(-50%,-50%);transition:opacity .15s linear}
+    .btn:hover {
+      background: linear-gradient(120deg, #1DB954, #ff2fa0);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
 
-  /* particles container */
-  #particles{position:fixed;inset:0;z-index:1;pointer-events:none}
+    .hidden { display: none; }
 
-  /* cinematic loader overlay */
-  .overlay{
-    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:7;
-    background:linear-gradient(180deg, rgba(2,2,6,0.6), rgba(2,2,6,0.5));backdrop-filter:blur(6px);
-    opacity:0;visibility:hidden;transition:opacity .35s ease, visibility .35s;
-  }
-  .overlay.show{opacity:1;visibility:visible}
+    @keyframes fadeOut { to { opacity: 0; transform: scale(0.95); } }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(1.05);} to { opacity: 1; transform: scale(1);} }
 
-  .overlay .panel{
-    color:#cfeff2;padding:28px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03);text-align:center;min-width:260px;
-  }
-  .overlay .small{ opacity:0.85; font-size:0.95rem }
+    .fade-out { animation: fadeOut 1s ease forwards; }
+    .fade-in { animation: fadeIn 1.5s ease forwards; }
 
-  /* Welcome card (same card style but center) */
-  #welcomePage{display:none; width:520px; max-width:92vw; text-align:center; padding:36px; border-radius:14px}
-  #welcomePage .card-inner{ background:var(--card); padding:36px;border-radius:14px;backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04)}
-  #welcomeText{font-size:2.4rem;margin:6px 0; background:linear-gradient(90deg,var(--neon-green),var(--magenta)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.6px}
-  .quote{margin-top:12px; font-style:italic; opacity:0.9; color:rgba(255,255,255,0.88)}
+    /* Pulse wave fixed and centered */
+    .wave {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-top: 50px;
+      height: 60px;
+      overflow: hidden;
+    }
 
-  /* fade and slide animations */
-  .fade-out{opacity:0;transform:translateY(8px) scale(.995);}
-  .fade-in{opacity:1;transform:none;transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
+    .wave span {
+      display: inline-block;
+      width: 6px;
+      height: 40px;
+      margin: 0 3px;
+      background: linear-gradient(180deg, #1DB954, #ff2fa0);
+      border-radius: 10px;
+      animation: bounce 1s ease infinite;
+      transform-origin: bottom center;
+    }
 
-  /* tiny ripple effect */
-  .ripple{position:absolute;border-radius:50%;transform:scale(0);animation:ripple .6s linear; background:rgba(255,255,255,0.14)}
-  @keyframes ripple{to{transform:scale(6);opacity:0}}
+    .wave span:nth-child(2) { animation-delay: 0.1s; }
+    .wave span:nth-child(3) { animation-delay: 0.2s; }
+    .wave span:nth-child(4) { animation-delay: 0.3s; }
+    .wave span:nth-child(5) { animation-delay: 0.4s; }
 
-  /* responsive tweaks */
-  @media (max-width:520px){
-    .card{padding:20px;width:92%}
-    .brand{font-size:2rem}
-    #welcomeText{font-size:1.6rem}
-  }
-</style>
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(0.3); }
+      50% { transform: scaleY(1); }
+    }
+
+    .quote {
+      margin-top: 25px;
+      font-size: 1.1em;
+      opacity: 0.85;
+      max-width: 500px;
+      margin-inline: auto;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .light {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    .music-toggle {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      font-size: 0.9em;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 25px;
+      padding: 8px 16px;
+      cursor: pointer;
+      color: #fff;
+      transition: 0.3s;
+      z-index: 5;
+      backdrop-filter: blur(6px);
+    }
+
+    .music-toggle:hover {
+      background: linear-gradient(120deg, #1DB954, #ff2fa0);
+    }
+  </style>
 </head>
 <body>
-  <!-- mouse-follow ambient light -->
-  <div class="light" id="light" style="left:-200px;top:-200px;opacity:0;"></div>
+  <div class="bg-layer" id="bg-layer"></div>
+  <div class="light"></div>
 
-  <!-- floating particles -->
-  <div id="particles"></div>
+  <button class="music-toggle" id="music-toggle">🔊 Music: On</button>
 
-  <!-- top utility controls -->
-  <div class="controls" aria-hidden="false">
-    <div class="audio-toggle" id="audioToggle" title="Toggle ambient music (calm piano)">
-      🎹
-    </div>
+  <div class="container" id="login-page">
+    <h1>FeelTuneAI</h1>
+    <input type="text" id="name" placeholder="Your Name" class="btn" />
+    <input type="text" id="phone" placeholder="Phone Number" class="btn" />
+    <input type="password" id="password" placeholder="Create Password" class="btn" />
+    <button class="btn" onclick="login()">Login</button>
+    <button class="btn" onclick="continueGuest()">Continue as Guest</button>
   </div>
 
-  <!-- central stage -->
-  <div class="stage" id="stage">
-    <!-- Login card -->
-    <div class="card" id="loginCard">
-      <div class="brand">FeelTuneAI</div>
-      <div style="margin-bottom:8px;text-align:center;color:rgba(255,255,255,0.78)">Sign in or continue as guest</div>
-
-      <label class="field"><input id="name" type="text" placeholder="Name" /></label>
-      <label class="field"><input id="phone" type="tel" placeholder="Phone number" /></label>
-      <label class="field"><input id="password" type="password" placeholder="Password" /></label>
-
-      <button class="btn" id="loginBtn">Login</button>
-      <button class="guest" id="guestBtn">Continue as Guest</button>
+  <div class="container hidden" id="welcome-page">
+    <h1 id="welcome-text">WELCOME</h1>
+    <div class="wave">
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
-
-    <!-- Welcome container (initially hidden) -->
-    <div id="welcomePage" style="display:none; z-index:3">
-      <div class="card-inner">
-        <div id="welcomeText">WELCOME</div>
-        <div class="quote" id="quoteText">Tuning your vibe...</div>
-
-        <!-- Canvas for AI pulse wave -->
-        <canvas id="pulseCanvas" width="460" height="120" style="display:block;margin:18px auto;border-radius:10px"></canvas>
-
-        <button class="btn" id="enterSiteBtn" style="width:220px;margin-top:6px">Go to Website</button>
-      </div>
-    </div>
+    <p class="quote" id="quote"></p>
   </div>
 
-  <!-- cinematic overlay (loading / tuning) -->
-  <div class="overlay" id="overlay">
-    <div class="panel">
-      <div style="font-weight:700;font-size:1.2rem;margin-bottom:6px">Tuning your vibe...</div>
-      <div class="small" id="overlaySub">Preparing your personalised audio fingerprint</div>
-    </div>
-  </div>
-
-  <!-- ambient audio (replace src with your calm piano + reverb file if you have one) -->
-  <audio id="ambientAudio" loop crossorigin="anonymous">
-    <!-- NOTE: Replace the src below with your calm piano + reverb audio file or URL.
-         Example: audio.src = 'https://yourhost/audio/calmpiano.mp3'
-         For demo, the player is present but no source is prefilled to avoid cross-host issues. -->
+  <audio id="bg-music" loop autoplay>
+    <source src="https://cdn.pixabay.com/download/audio/2023/04/17/audio_7a3ed63cde.mp3" type="audio/mp3">
   </audio>
 
-<script>
-/* ====== CONFIG ====== */
-const liveURL = "https://splenic-unavid-marinda.ngrok-free.dev"; // your ngrok/public site
-// If you have an audio file URL, set it here:
-const audioSrc = ""; // e.g. "https://example.com/calmpiano-loop.mp3"
+  <script>
+    const light = document.querySelector('.light');
+    const bgLayer = document.getElementById('bg-layer');
 
-/* ====== PARTICLES ====== */
-const particlesRoot = document.getElementById('particles');
-const PARTICLE_COUNT = 28;
-const PARTICLE_COLORS = [
-  'rgba(0,255,136,0.06)',
-  'rgba(255,45,156,0.06)',
-  'rgba(0,255,136,0.04)'
-];
+    document.addEventListener('mousemove', (e) => {
+      light.style.left = `${e.clientX}px`;
+      light.style.top = `${e.clientY}px`;
 
-for(let i=0;i<PARTICLE_COUNT;i++){
-  const d = document.createElement('div');
-  d.className = 'particle';
-  const size = Math.random()*10 + 4;
-  d.style.width = d.style.height = size + 'px';
-  d.style.left = (Math.random()*100) + 'vw';
-  d.style.top = (Math.random()*100) + 'vh';
-  d.style.background = PARTICLE_COLORS[Math.floor(Math.random()*PARTICLE_COLORS.length)];
-  d.style.opacity = 0.7 * Math.random();
-  d.style.animationDuration = (Math.random()*10 + 8) + 's';
-  d.style.filter = 'blur(' + (Math.random()*3) + 'px)';
-  particlesRoot.appendChild(d);
-}
+      // Parallax motion for cinematic effect
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      bgLayer.style.transform = `translate(${x}px, ${y}px) scale(1.2)`;
+    });
 
-/* ====== MOUSE LIGHT ====== */
-const light = document.getElementById('light');
-document.addEventListener('mousemove', (e) => {
-  light.style.left = e.clientX + 'px';
-  light.style.top = e.clientY + 'px';
-  light.style.opacity = 1;
-});
+    const quotes = [
+      "Music is the voice of the soul, and AI just made it personal.",
+      "Let your mood shape the melody — that’s the FeelTuneAI way.",
+      "When words fail, AI and music speak.",
+      "Every emotion deserves its own soundtrack."
+    ];
 
-/* ====== RIPPLE EFFECT for big button clicks ====== */
-function rippleEffect(e){
-  const btn = e.currentTarget;
-  const rect = btn.getBoundingClientRect();
-  const r = document.createElement('span');
-  const size = Math.max(rect.width, rect.height) * 1.2;
-  r.className = 'ripple';
-  r.style.width = r.style.height = size + 'px';
-  r.style.left = (e.clientX - rect.left - size/2) + 'px';
-  r.style.top = (e.clientY - rect.top - size/2) + 'px';
-  btn.appendChild(r);
-  setTimeout(()=> r.remove(), 700);
-}
+    const loginPage = document.getElementById('login-page');
+    const welcomePage = document.getElementById('welcome-page');
+    const welcomeText = document.getElementById('welcome-text');
+    const quoteText = document.getElementById('quote');
+    const music = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
 
-/* ====== CINEMATIC TRANSITION: login -> overlay -> welcome ====== */
-const loginBtn = document.getElementById('loginBtn');
-const guestBtn = document.getElementById('guestBtn');
-const loginCard = document.getElementById('loginCard');
-const overlay = document.getElementById('overlay');
-const welcomePage = document.getElementById('welcomePage');
-const welcomeText = document.getElementById('welcomeText');
-const quoteText = document.getElementById('quoteText');
-const enterSiteBtn = document.getElementById('enterSiteBtn');
+    music.volume = 0.4;
 
-function showOverlayAndThenWelcome(name, isGuest=false){
-  // fade out login card
-  loginCard.classList.add('fade-out');
-  // show overlay
-  overlay.classList.add('show');
-
-  // small variations for text
-  if(isGuest){
-    welcomeText.innerText = 'WELCOME GUEST';
-    quoteText.innerText = '"Music is the universal language of mankind." — H. W. Longfellow';
-  } else {
-    welcomeText.innerText = `WELCOME ${String(name).toUpperCase()}`;
-    quoteText.innerText = '"Where words fail, music speaks." — H. C. Andersen';
-  }
-
-  // simulate tuning for 1400-2200ms then reveal welcome
-  const tuneTime = 1400 + Math.random()*900;
-  setTimeout(()=> {
-    overlay.classList.remove('show');
-    loginCard.style.display = 'none';
-    welcomePage.style.display = 'block';
-    welcomePage.classList.add('fade-in');
-    // animate quote fade in
-    quoteText.style.opacity = 0;
-    setTimeout(()=> quoteText.style.transition = 'opacity .9s ease', 50);
-    setTimeout(()=> quoteText.style.opacity = 1, 200);
-  }, tuneTime);
-}
-
-/* attach ripple to buttons */
-loginBtn.addEventListener('click', (e)=>{
-  rippleEffect(e);
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const password = document.getElementById('password').value.trim();
-  if(!name || !phone || !password){
-    alert('Please fill all fields to login (Name, Phone, Password).');
-    return;
-  }
-  showOverlayAndThenWelcome(name, false);
-});
-
-guestBtn.addEventListener('click', (e)=>{
-  rippleEffect(e);
-  showOverlayAndThenWelcome('GUEST', true);
-});
-
-/* go to ngrok/app */
-enterSiteBtn.addEventListener('click', ()=> {
-  window.location.href = liveURL;
-});
-
-/* small keyboard enter support */
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter' && document.activeElement.tagName.toLowerCase() !== 'button'){
-    loginBtn.click();
-  }
-});
-
-/* ====== AMBIENT AUDIO TOGGLE ====== */
-const audioEl = document.getElementById('ambientAudio');
-const audioToggle = document.getElementById('audioToggle');
-// If you have an audio URL, set it here programmatically.
-// Replace audioSrc variable value above (or set here directly) to enable a default sound.
-if(audioSrc && audioSrc.length>5){
-  audioEl.src = audioSrc;
-} else {
-  // no source by default; user can paste their own link into the audio.src variable above if desired
-  audioEl.src = "";
-}
-let audioPlaying = false;
-audioToggle.addEventListener('click', ()=>{
-  if(!audioEl.src){
-    // friendly guidance if audio wasn't provided; do not block UI
-    if(confirm("No audio source is configured. Would you like to add your calm piano URL to the code now? (Cancel to skip)")){
-      const url = prompt("Paste calm piano (mp3) URL here:");
-      if(url) { audioEl.src = url; audioEl.play(); audioPlaying = true; audioToggle.style.filter='drop-shadow(0 0 8px rgba(0,255,136,0.4))' }
+    function transitionToWelcome(name = "GUEST") {
+      loginPage.classList.add('fade-out');
+      setTimeout(() => {
+        loginPage.classList.add('hidden');
+        welcomePage.classList.remove('hidden');
+        welcomePage.classList.add('fade-in');
+        welcomeText.textContent = `WELCOME ${name.toUpperCase()}`;
+        quoteText.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+      }, 800);
     }
-    return;
-  }
-  if(audioPlaying){ audioEl.pause(); audioPlaying=false; audioToggle.style.filter=''; }
-  else { audioEl.play(); audioPlaying=true; audioToggle.style.filter='drop-shadow(0 0 8px rgba(0,255,136,0.4))' }
-});
 
-/* ensure audio is muted by autoplay policies until user toggles — start paused */
-audioEl.pause();
-
-/* ====== AI PULSE WAVE (canvas) ====== */
-const canvas = document.getElementById('pulseCanvas');
-const ctx = canvas.getContext('2d');
-let W = canvas.width;
-let H = canvas.height;
-function resizeCanvas(){
-  W = canvas.width = Math.min(920, Math.max(320, Math.min(window.innerWidth-40, 460)));
-  H = canvas.height = 120;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-let t = 0;
-function drawPulse(){
-  ctx.clearRect(0,0,W,H);
-  // background subtle gradient
-  const g = ctx.createLinearGradient(0,0,W,0);
-  g.addColorStop(0, 'rgba(0,255,136,0.03)');
-  g.addColorStop(1, 'rgba(255,45,156,0.03)');
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,W,H);
-
-  // draw multiple overlapping sine waves
-  const amps = [16, 8, 28];
-  const speeds = [0.018, 0.009, 0.013];
-  const colors = [
-    'rgba(0,255,136,0.85)',
-    'rgba(255,45,156,0.55)',
-    'rgba(0,255,136,0.28)'
-  ];
-
-  for(let k=0;k<amps.length;k++){
-    ctx.beginPath();
-    ctx.moveTo(0, H/2);
-    for(let x=0;x<=W;x+=2){
-      const px = x/W * Math.PI * 2;
-      const y = H/2 + Math.sin(px*1.6 + t*speeds[k])* (amps[k] + Math.sin(t*0.02 + k)*6);
-      ctx.lineTo(x, y);
+    function login() {
+      const name = document.getElementById('name').value || "User";
+      transitionToWelcome(name);
     }
-    ctx.strokeStyle = colors[k];
-    ctx.lineWidth = (k===0 ? 3.2 : (k===1?2.2:1.2));
-    ctx.shadowBlur = 12*(k===0?1:0.4);
-    ctx.shadowColor = colors[k];
-    ctx.stroke();
-    ctx.closePath();
-  }
 
-  t += 1;
-  requestAnimationFrame(drawPulse);
-}
-requestAnimationFrame(drawPulse);
+    function continueGuest() {
+      transitionToWelcome("GUEST");
+    }
 
-/* small breathing animation for welcome text */
-function animateWelcomePulse(){
-  const el = document.getElementById('welcomeText');
-  el.animate([
-    {transform:'scale(0.98)', opacity:0.95},
-    {transform:'scale(1.02)', opacity:1}
-  ], {duration:1800, iterations:Infinity, direction:'alternate', easing:'ease-in-out'});
-}
-animateWelcomePulse();
-
-/* small polish: remove overlay text after use (already toggled) */
-
-/* ====== Optional: show small hint if site unreachable (useful for local ngrok) ====== */
-// (Not intrusive) - no network check here; leave to user to click Go to Website.
-
-/* ====== End script ====== */
-</script>
+    musicToggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        musicToggle.textContent = "🔊 Music: On";
+      } else {
+        music.pause();
+        musicToggle.textContent = "🔇 Music: Off";
+      }
+    });
+  </script>
 </body>
 </html>
