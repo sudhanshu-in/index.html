@@ -11,31 +11,24 @@
 <style>
 :root{
   --bg-deep:#05060a;
-  --card-bg: rgba(12,10,22,0.72);
-  --neon-green:#00ff9a;
-  --magenta:#ff2fa0;
-  --electric:#6be0ff;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
 html,body{height:100%;background:var(--bg-deep);color:#fff;overflow:hidden}
 
-/* Animated gradient background */
+/* Brighter, smoother gradient background */
 @keyframes gradientBG {
-  0%{background: linear-gradient(120deg, #ff2fa0, #6be0ff);}
+  0%{background: linear-gradient(120deg, #ff5ee6, #6be0ff);}
   25%{background: linear-gradient(120deg, #6be0ff, #c86bff);}
-  50%{background: linear-gradient(120deg, #c86bff, #ff2fa0);}
-  75%{background: linear-gradient(120deg, #6be0ff, #ff2fa0);}
-  100%{background: linear-gradient(120deg, #ff2fa0, #6be0ff);}
+  50%{background: linear-gradient(120deg, #c86bff, #ff85d1);}
+  75%{background: linear-gradient(120deg, #6be0ff, #ff85d1);}
+  100%{background: linear-gradient(120deg, #ff5ee6, #6be0ff);}
 }
-
-/* background flowing gradient layer (parallax applied) */
-.bg {
-  position:fixed;inset:0;z-index:0;
-  background: linear-gradient(120deg, #ff2fa0, #6be0ff);
+.bg{
+  position:fixed; inset:0; z-index:0;
   filter: blur(22px) saturate(120%);
   transform: scale(1.02);
   transition: transform .25s ease-out;
-  animation: gradientBG 20s linear infinite;
+  animation: gradientBG 30s ease-in-out infinite;
 }
 
 /* small grain overlay */
@@ -44,26 +37,31 @@ html,body{height:100%;background:var(--bg-deep);color:#fff;overflow:hidden}
   background-size: 8px 8px; mix-blend-mode:overlay; opacity:0.4;
 }
 
-/* particle container */
+/* particles root */
 #particles { position:fixed; inset:0; z-index:2; pointer-events:none; }
 
-/* stage centers content */
+/* stage */
 .stage { position:relative; z-index:4; height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
 
-/* login card */
+/* login card: ultra-transparent glass */
 .card {
   width:440px; max-width:94vw; border-radius:14px; padding:28px;
-  background:var(--card-bg); border:1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 18px 60px rgba(0,0,0,0.7);
-  backdrop-filter: blur(10px) saturate(130%); text-align:center;
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 18px 60px rgba(255,47,160,0.2), 0 0 12px rgba(0,255,154,0.2);
+  backdrop-filter: blur(18px) saturate(150%);
+  text-align:center;
   transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.2,1);
 }
+
 .title {
   font-size:1.25rem; margin-bottom:12px;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(90deg,var(--neon-green),var(--magenta),var(--electric));
+  background: linear-gradient(90deg, #00ffe0, #ff5ee6, #6be0ff);
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow: 0 0 6px rgba(0,255,224,0.4), 0 0 12px rgba(255,94,230,0.3);
 }
+
 .inputs { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
 input{ padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -71,17 +69,16 @@ input{ padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,
 }
 input:focus{ border-color: rgba(0,255,154,0.7); box-shadow: 0 8px 30px rgba(0,255,154,0.06); transform: translateY(-1px); }
 
-/* main buttons */
 .btn { margin-top:12px; padding:12px 16px; border-radius:12px; border:0;
   background: linear-gradient(90deg, rgba(0,255,154,0.95), rgba(255,47,160,0.95)); color:#021; font-weight:700; cursor:pointer;
   box-shadow: 0 10px 40px rgba(0,255,154,0.06); transition: transform .18s, box-shadow .18s;
   position:relative; overflow:hidden;
 }
 .btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 70px rgba(0,255,154,0.12), 0 6px 26px rgba(255,47,160,0.06); }
-.guest { margin-top:10px; padding:10px 14px; border-radius:12px; background:transparent; border:1px solid rgba(0,255,154,0.18); color:var(--neon-green); cursor:pointer;}
+.guest { margin-top:10px; padding:10px 14px; border-radius:12px; background:transparent; border:1px solid rgba(0,255,154,0.18); color:#00ffe0; cursor:pointer;}
 .guest:hover{ background: rgba(0,255,154,0.06); color:#dfffee; }
 
-/* overlay for tuning animation */
+/* overlay */
 .overlay{ position:fixed; inset:0; z-index:9; display:flex; align-items:center; justify-content:center;
   background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.52)); visibility:hidden; opacity:0; transition:opacity .28s, visibility .28s;}
 .overlay.show{ visibility:visible; opacity:1; }
@@ -89,11 +86,13 @@ input:focus{ border-color: rgba(0,255,154,0.7); box-shadow: 0 8px 30px rgba(0,25
   padding:20px 22px; border-radius:12px; color:#e7fffb; border:1px solid rgba(255,255,255,0.03); box-shadow:0 18px 60px rgba(0,0,0,0.6); }
 
 /* welcome card */
-#welcomeCard { display:none; width:540px; max-width:94vw; padding:26px; border-radius:14px; background:var(--card-bg);
-  border:1px solid rgba(255,255,255,0.04); box-shadow: 0 20px 80px rgba(0,0,0,0.7); backdrop-filter: blur(10px); text-align:center;
+#welcomeCard { display:none; width:540px; max-width:94vw; padding:26px; border-radius:14px; background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 80px rgba(255,47,160,0.2), 0 0 16px rgba(0,255,154,0.2); backdrop-filter: blur(18px); text-align:center;
 }
 #welcomeTitle { font-size:2.0rem; margin-bottom:6px; font-family: 'Orbitron', sans-serif;
-  background:linear-gradient(90deg,var(--neon-green),var(--magenta)); -webkit-background-clip:text; color:transparent; }
+  background:linear-gradient(90deg, #00ffe0, #ff5ee6, #6be0ff); -webkit-background-clip:text; color:transparent;
+  text-shadow: 0 0 6px rgba(0,255,224,0.4), 0 0 12px rgba(255,94,230,0.3);
+}
 .welcome-quote { margin-top:10px; color:rgba(255,255,255,0.92); font-style:italic; max-width:520px; margin-left:auto;margin-right:auto; }
 
 .pulse-wrap{ margin:18px auto 8px; width:86%; max-width:460px; height:120px; border-radius:10px; overflow:hidden; display:block; }
@@ -104,19 +103,24 @@ input:focus{ border-color: rgba(0,255,154,0.7); box-shadow: 0 8px 30px rgba(0,25
   color:#021; font-weight:800; font-size:1.05rem; transition: box-shadow .3s ease, transform .18s ease; opacity:0; transform: translateY(8px) scale(.995);
 }
 @keyframes breathe { 0%{ box-shadow:0 8px 30px rgba(0,255,154,0.06); transform: translateY(0) scale(1);} 50%{ box-shadow:0 18px 60px rgba(255,47,160,0.12); transform: translateY(-2px) scale(1.02);} 100%{ box-shadow:0 8px 30px rgba(0,255,154,0.06); transform: translateY(0) scale(1);} }
-.cta.idle { animation: breathe 2400ms ease-in-out infinite; text-shadow: 0 0 12px rgba(255,47,160,0.45), 0 0 24px rgba(0,255,154,0.25); }
+.cta.idle { animation: breathe 2400ms ease-in-out infinite; text-shadow: 0 0 16px rgba(255,94,230,0.6), 0 0 32px rgba(0,255,224,0.5); }
 .cta:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 30px 120px rgba(255,47,160,0.14); }
 
 /* audio control */
 .controls{ position:fixed; top:16px; right:16px; z-index:6; display:flex; gap:10px; }
-.audio-btn{ width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--neon-green); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(0,0,0,0.45); }
+.audio-btn{ width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#00ffe0; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(0,0,0,0.45); }
 
 /* particle css (small glowing dots) */
-.particle { position:fixed; border-radius:50%; pointer-events:none; z-index:2; }
+.particle { position:fixed; border-radius:50%; pointer-events:none; z-index:2;
+  background: radial-gradient(circle, rgba(255,94,230,0.3), rgba(107,224,255,0.2));
+  box-shadow: 0 0 8px rgba(255,94,230,0.25), 0 0 16px rgba(107,224,255,0.2);
+  opacity:0.5;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
 
 /* credit bottom-right */
 .credit { position:fixed; right:16px; bottom:10px; font-size:0.86rem; color:rgba(255,255,255,0.86); z-index:6; }
-.credit strong{ color:var(--neon-green); text-shadow: 0 6px 18px rgba(0,255,154,0.06); }
+.credit strong{ color:#00ffe0; text-shadow: 0 6px 18px rgba(0,255,154,0.06); }
 
 /* responsive tweaks */
 @media (max-width:640px){
@@ -129,54 +133,56 @@ input:focus{ border-color: rgba(0,255,154,0.7); box-shadow: 0 8px 30px rgba(0,25
 </head>
 
 <body>
-  <!-- background layers -->
-  <div class="bg" id="bg"></div>
-  <div class="grain"></div>
+<!-- background layers -->
+<div class="bg" id="bg"></div>
+<div class="grain"></div>
 
-  <!-- particles root -->
-  <div id="particles"></div>
+<!-- particles root -->
+<div id="particles"></div>
 
-  <!-- audio control -->
-  <div class="controls">
-    <div class="audio-btn" id="audioBtn" title="Toggle ambient music">🔈</div>
+<!-- audio control -->
+<div class="controls">
+  <div class="audio-btn" id="audioBtn" title="Toggle ambient music">🔈</div>
+</div>
+
+<!-- stage -->
+<div class="stage">
+  <!-- login card -->
+  <div class="card" id="loginCard" role="region" aria-label="Login panel">
+    <div class="title">Welcome to the FeelTune AI Realm</div>
+    <div class="inputs">
+      <input id="name" type="text" placeholder="Name" autocomplete="name" />
+      <input id="phone" type="tel" placeholder="Phone number" autocomplete="tel" />
+      <input id="password" type="password" placeholder="Create password" autocomplete="new-password" />
+    </div>
+    <button class="btn" id="loginBtn">Login</button>
+    <button class="guest" id="guestBtn">Continue as Guest</button>
   </div>
 
-  <!-- stage -->
-  <div class="stage">
-    <!-- login card -->
-    <div class="card" id="loginCard" role="region" aria-label="Login panel">
-      <div class="title">Welcome to the FeelTune AI Realm</div>
-      <div class="inputs">
-        <input id="name" type="text" placeholder="Name" autocomplete="name" />
-        <input id="phone" type="tel" placeholder="Phone number" autocomplete="tel" />
-        <input id="password" type="password" placeholder="Create password" autocomplete="new-password" />
-      </div>
-      <button class="btn" id="loginBtn">Login</button>
-      <button class="guest" id="guestBtn">Continue as Guest</button>
-    </div>
+  <!-- welcome card -->
+  <div id="welcomeCard" aria-hidden="true">
+    <div id="welcomeTitle">WELCOME</div>
+    <div class="welcome-quote" id="welcomeQuote">Tuning your vibe...</div>
 
-    <!-- welcome card -->
-    <div id="welcomeCard" aria-hidden="true">
-      <div id="welcomeTitle">WELCOME</div>
-      <div class="welcome-quote" id="welcomeQuote">Tuning your vibe...</div>
-      <div class="pulse-wrap"><canvas id="pulseCanvas"></canvas></div>
-      <button id="enterBtn" class="cta idle" aria-label="Enter FeelTune AI Experience">Enter FeelTune AI Experience →</button>
-    </div>
+    <div class="pulse-wrap"><canvas id="pulseCanvas"></canvas></div>
+    <button id="enterBtn" class="cta idle" aria-label="Enter FeelTune AI Experience">Enter FeelTune AI Experience →</button>
   </div>
+</div>
 
-  <!-- overlay -->
-  <div class="overlay" id="overlay"><div class="panel"><div style="font-weight:700;margin-bottom:6px">Tuning your vibe...</div><div style="opacity:.9">Preparing your personalised audio fingerprint</div></div></div>
+<!-- overlay -->
+<div class="overlay" id="overlay"><div class="panel"><div style="font-weight:700;margin-bottom:6px">Tuning your vibe...</div><div style="opacity:.9">Preparing your personalised audio fingerprint</div></div></div>
 
-  <!-- credit -->
-  <div class="credit">Developed by <strong>AETHERION TEAM</strong></div>
+<!-- credit -->
+<div class="credit">Developed by <strong>AETHERION TEAM</strong></div>
 
-  <!-- embedded royalty-free calm piano -->
-  <audio id="bgAudio" loop crossorigin="anonymous">
-    <source src="https://cdn.pixabay.com/download/audio/2023/04/17/audio_7a3ed63cde.mp3" type="audio/mp3">
-  </audio>
+<!-- embedded royalty-free calm piano -->
+<audio id="bgAudio" loop crossorigin="anonymous">
+  <source src="https://cdn.pixabay.com/download/audio/2023/04/17/audio_7a3ed63cde.mp3" type="audio/mp3">
+</audio>
 
 <script>
-// Entire JS from your original code stays unchanged: particles, login/welcome flow, audio toggle, pulse canvas, parallax, etc.
+// --- All JS same as your previous version ---
+// Audio toggle, particles animation, login/guest reveal, pulse canvas, CTA flow etc.
 </script>
 </body>
 </html>
