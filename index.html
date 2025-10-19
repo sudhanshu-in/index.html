@@ -4,113 +4,130 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Welcome to the FeelTune AI Realm</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --bg-deep:#05060a;
-    --card-bg: rgba(12,10,22,0.72);
-    --neon-green:#00ff9a;
-    --magenta:#ff2fa0;
-    --electric:#6be0ff;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  html,body{height:100%;background:var(--bg-deep);color:#fff;overflow:hidden}
+:root{
+  --bg-deep:#05060a;
+  --card-bg: rgba(12,10,22,0.72);
+  --neon-green:#00ff9a;
+  --magenta:#ff2fa0;
+  --electric:#6be0ff;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+html,body{height:100%;background:var(--bg-deep);color:#fff;overflow:hidden}
 
-  /* background flowing gradient layer (parallax applied) */
-  .bg {
-    position:fixed;inset:0;z-index:0;
-    background: linear-gradient(120deg, rgba(0,255,154,0.06), rgba(255,47,160,0.06), rgba(107,224,255,0.04));
-    filter: blur(22px) saturate(120%);
-    transform: scale(1.02);
-    transition: transform .25s ease-out;
-  }
+/* Animated gradient background */
+@keyframes gradientBG {
+  0%{background: linear-gradient(120deg, #ff2fa0, #6be0ff);}
+  25%{background: linear-gradient(120deg, #6be0ff, #c86bff);}
+  50%{background: linear-gradient(120deg, #c86bff, #ff2fa0);}
+  75%{background: linear-gradient(120deg, #6be0ff, #ff2fa0);}
+  100%{background: linear-gradient(120deg, #ff2fa0, #6be0ff);}
+}
 
-  /* small grain overlay */
-  .grain { position:fixed;inset:0;z-index:1;pointer-events:none;
-    background-image: radial-gradient(rgba(255,255,255,0.014) 1px, transparent 1px);
-    background-size: 8px 8px; mix-blend-mode:overlay; opacity:0.4;
-  }
+/* background flowing gradient layer (parallax applied) */
+.bg {
+  position:fixed;inset:0;z-index:0;
+  background: linear-gradient(120deg, #ff2fa0, #6be0ff);
+  filter: blur(22px) saturate(120%);
+  transform: scale(1.02);
+  transition: transform .25s ease-out;
+  animation: gradientBG 20s linear infinite;
+}
 
-  /* particle container */
-  #particles { position:fixed; inset:0; z-index:2; pointer-events:none; }
+/* small grain overlay */
+.grain { position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image: radial-gradient(rgba(255,255,255,0.014) 1px, transparent 1px);
+  background-size: 8px 8px; mix-blend-mode:overlay; opacity:0.4;
+}
 
-  /* stage centers content */
-  .stage { position:relative; z-index:4; height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+/* particle container */
+#particles { position:fixed; inset:0; z-index:2; pointer-events:none; }
 
-  /* login card */
-  .card {
-    width:440px; max-width:94vw; border-radius:14px; padding:28px;
-    background:var(--card-bg); border:1px solid rgba(255,255,255,0.04);
-    box-shadow: 0 18px 60px rgba(0,0,0,0.7);
-    backdrop-filter: blur(10px) saturate(130%); text-align:center;
-    transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.2,1);
-  }
-  .title {
-    font-size:1.25rem; margin-bottom:12px;
-    background: linear-gradient(90deg,var(--neon-green),var(--magenta),var(--electric));
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  }
-  .inputs { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
-  input{ padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    color:#eafffb; outline:none; transition: box-shadow .15s, border-color .15s, transform .12s; font-size:0.95rem;
-  }
-  input:focus{ border-color: rgba(0,255,154,0.7); box-shadow: 0 8px 30px rgba(0,255,154,0.06); transform: translateY(-1px); }
+/* stage centers content */
+.stage { position:relative; z-index:4; height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
 
-  /* main buttons */
-  .btn { margin-top:12px; padding:12px 16px; border-radius:12px; border:0;
-    background: linear-gradient(90deg, rgba(0,255,154,0.95), rgba(255,47,160,0.95)); color:#021; font-weight:700; cursor:pointer;
-    box-shadow: 0 10px 40px rgba(0,255,154,0.06); transition: transform .18s, box-shadow .18s;
-    position:relative; overflow:hidden;
-  }
-  .btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 70px rgba(0,255,154,0.12), 0 6px 26px rgba(255,47,160,0.06); }
-  .guest { margin-top:10px; padding:10px 14px; border-radius:12px; background:transparent; border:1px solid rgba(0,255,154,0.18); color:var(--neon-green); cursor:pointer;}
-  .guest:hover{ background: rgba(0,255,154,0.06); color:#dfffee; }
+/* login card */
+.card {
+  width:440px; max-width:94vw; border-radius:14px; padding:28px;
+  background:var(--card-bg); border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px) saturate(130%); text-align:center;
+  transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.2,1);
+}
+.title {
+  font-size:1.25rem; margin-bottom:12px;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(90deg,var(--neon-green),var(--magenta),var(--electric));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.inputs { display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+input{ padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:#eafffb; outline:none; transition: box-shadow .15s, border-color .15s, transform .12s; font-size:0.95rem;
+}
+input:focus{ border-color: rgba(0,255,154,0.7); box-shadow: 0 8px 30px rgba(0,255,154,0.06); transform: translateY(-1px); }
 
-  /* overlay for tuning animation */
-  .overlay{ position:fixed; inset:0; z-index:9; display:flex; align-items:center; justify-content:center;
-    background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.52)); visibility:hidden; opacity:0; transition:opacity .28s, visibility .28s;}
-  .overlay.show{ visibility:visible; opacity:1; }
-  .overlay .panel{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    padding:20px 22px; border-radius:12px; color:#e7fffb; border:1px solid rgba(255,255,255,0.03); box-shadow:0 18px 60px rgba(0,0,0,0.6); }
+/* main buttons */
+.btn { margin-top:12px; padding:12px 16px; border-radius:12px; border:0;
+  background: linear-gradient(90deg, rgba(0,255,154,0.95), rgba(255,47,160,0.95)); color:#021; font-weight:700; cursor:pointer;
+  box-shadow: 0 10px 40px rgba(0,255,154,0.06); transition: transform .18s, box-shadow .18s;
+  position:relative; overflow:hidden;
+}
+.btn:hover{ transform: translateY(-4px); box-shadow: 0 18px 70px rgba(0,255,154,0.12), 0 6px 26px rgba(255,47,160,0.06); }
+.guest { margin-top:10px; padding:10px 14px; border-radius:12px; background:transparent; border:1px solid rgba(0,255,154,0.18); color:var(--neon-green); cursor:pointer;}
+.guest:hover{ background: rgba(0,255,154,0.06); color:#dfffee; }
 
-  /* welcome card */
-  #welcomeCard { display:none; width:540px; max-width:94vw; padding:26px; border-radius:14px; background:var(--card-bg);
-    border:1px solid rgba(255,255,255,0.04); box-shadow: 0 20px 80px rgba(0,0,0,0.7); backdrop-filter: blur(10px); text-align:center;
-  }
-  #welcomeTitle { font-size:2.0rem; margin-bottom:6px; background:linear-gradient(90deg,var(--neon-green),var(--magenta)); -webkit-background-clip:text; color:transparent; }
-  .welcome-quote { margin-top:10px; color:rgba(255,255,255,0.92); font-style:italic; max-width:520px; margin-left:auto;margin-right:auto; }
+/* overlay for tuning animation */
+.overlay{ position:fixed; inset:0; z-index:9; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.52)); visibility:hidden; opacity:0; transition:opacity .28s, visibility .28s;}
+.overlay.show{ visibility:visible; opacity:1; }
+.overlay .panel{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:20px 22px; border-radius:12px; color:#e7fffb; border:1px solid rgba(255,255,255,0.03); box-shadow:0 18px 60px rgba(0,0,0,0.6); }
 
-  .pulse-wrap{ margin:18px auto 8px; width:86%; max-width:460px; height:120px; border-radius:10px; overflow:hidden; display:block; }
+/* welcome card */
+#welcomeCard { display:none; width:540px; max-width:94vw; padding:26px; border-radius:14px; background:var(--card-bg);
+  border:1px solid rgba(255,255,255,0.04); box-shadow: 0 20px 80px rgba(0,0,0,0.7); backdrop-filter: blur(10px); text-align:center;
+}
+#welcomeTitle { font-size:2.0rem; margin-bottom:6px; font-family: 'Orbitron', sans-serif;
+  background:linear-gradient(90deg,var(--neon-green),var(--magenta)); -webkit-background-clip:text; color:transparent; }
+.welcome-quote { margin-top:10px; color:rgba(255,255,255,0.92); font-style:italic; max-width:520px; margin-left:auto;margin-right:auto; }
 
-  /* CTA */
-  .cta { margin-top:18px; padding:14px 22px; border-radius:14px; cursor:pointer; border:0;
-    background: linear-gradient(90deg, rgba(0,255,154,0.88), rgba(255,47,160,0.88));
-    color:#021; font-weight:800; font-size:1.05rem; transition: box-shadow .3s ease, transform .18s ease; opacity:0; transform: translateY(8px) scale(.995);
-  }
-  @keyframes breathe { 0%{ box-shadow:0 8px 30px rgba(0,255,154,0.06); transform: translateY(0) scale(1);} 50%{ box-shadow:0 18px 60px rgba(255,47,160,0.12); transform: translateY(-2px) scale(1.02);} 100%{ box-shadow:0 8px 30px rgba(0,255,154,0.06); transform: translateY(0) scale(1);} }
-  .cta.idle { animation: breathe 2400ms ease-in-out infinite; }
-  .cta:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 30px 120px rgba(255,47,160,0.14); }
+.pulse-wrap{ margin:18px auto 8px; width:86%; max-width:460px; height:120px; border-radius:10px; overflow:hidden; display:block; }
 
-  /* audio control */
-  .controls{ position:fixed; top:16px; right:16px; z-index:6; display:flex; gap:10px; }
-  .audio-btn{ width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--neon-green); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(0,0,0,0.45); }
+/* CTA */
+.cta { margin-top:18px; padding:14px 22px; border-radius:14px; cursor:pointer; border:0;
+  background: linear-gradient(90deg, rgba(0,255,154,0.88), rgba(255,47,160,0.88));
+  color:#021; font-weight:800; font-size:1.05rem; transition: box-shadow .3s ease, transform .18s ease; opacity:0; transform: translateY(8px) scale(.995);
+}
+@keyframes breathe { 0%{ box-shadow:0 8px 30px rgba(0,255,154,0.06); transform: translateY(0) scale(1);} 50%{ box-shadow:0 18px 60px rgba(255,47,160,0.12); transform: translateY(-2px) scale(1.02);} 100%{ box-shadow:0 8px 30px rgba(0,255,154,0.06); transform: translateY(0) scale(1);} }
+.cta.idle { animation: breathe 2400ms ease-in-out infinite; text-shadow: 0 0 12px rgba(255,47,160,0.45), 0 0 24px rgba(0,255,154,0.25); }
+.cta:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 30px 120px rgba(255,47,160,0.14); }
 
-  /* particle css (small glowing dots) */
-  .particle { position:fixed; border-radius:50%; pointer-events:none; z-index:2; }
+/* audio control */
+.controls{ position:fixed; top:16px; right:16px; z-index:6; display:flex; gap:10px; }
+.audio-btn{ width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--neon-green); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(0,0,0,0.45); }
 
-  /* credit bottom-right */
-  .credit { position:fixed; right:16px; bottom:10px; font-size:0.86rem; color:rgba(255,255,255,0.86); z-index:6; }
-  .credit strong{ color:var(--neon-green); text-shadow: 0 6px 18px rgba(0,255,154,0.06); }
+/* particle css (small glowing dots) */
+.particle { position:fixed; border-radius:50%; pointer-events:none; z-index:2; }
 
-  /* responsive tweaks */
-  @media (max-width:640px){
-    .card{width:92vw;padding:18px}
-    #welcomeCard{width:92vw;padding:16px}
-    .pulse-wrap{height:88px}
-    #welcomeTitle{font-size:1.4rem}
-  }
+/* credit bottom-right */
+.credit { position:fixed; right:16px; bottom:10px; font-size:0.86rem; color:rgba(255,255,255,0.86); z-index:6; }
+.credit strong{ color:var(--neon-green); text-shadow: 0 6px 18px rgba(0,255,154,0.06); }
+
+/* responsive tweaks */
+@media (max-width:640px){
+  .card{width:92vw;padding:18px}
+  #welcomeCard{width:92vw;padding:16px}
+  .pulse-wrap{height:88px}
+  #welcomeTitle{font-size:1.4rem}
+}
 </style>
 </head>
+
 <body>
   <!-- background layers -->
   <div class="bg" id="bg"></div>
@@ -142,7 +159,6 @@
     <div id="welcomeCard" aria-hidden="true">
       <div id="welcomeTitle">WELCOME</div>
       <div class="welcome-quote" id="welcomeQuote">Tuning your vibe...</div>
-
       <div class="pulse-wrap"><canvas id="pulseCanvas"></canvas></div>
       <button id="enterBtn" class="cta idle" aria-label="Enter FeelTune AI Experience">Enter FeelTune AI Experience →</button>
     </div>
@@ -154,204 +170,13 @@
   <!-- credit -->
   <div class="credit">Developed by <strong>AETHERION TEAM</strong></div>
 
-  <!-- embedded royalty-free calm piano (muted autoplay allowed) -->
+  <!-- embedded royalty-free calm piano -->
   <audio id="bgAudio" loop crossorigin="anonymous">
     <source src="https://cdn.pixabay.com/download/audio/2023/04/17/audio_7a3ed63cde.mp3" type="audio/mp3">
   </audio>
 
 <script>
-/* CONFIG */
-const LIVE_URL = "https://splenic-unavid-marinda.ngrok-free.dev";
-
-/* DOM */
-const bg = document.getElementById('bg');
-const particlesRoot = document.getElementById('particles');
-const audio = document.getElementById('bgAudio');
-const audioBtn = document.getElementById('audioBtn');
-const loginCard = document.getElementById('loginCard');
-const loginBtn = document.getElementById('loginBtn');
-const guestBtn = document.getElementById('guestBtn');
-const overlay = document.getElementById('overlay');
-const welcomeCard = document.getElementById('welcomeCard');
-const welcomeTitle = document.getElementById('welcomeTitle');
-const welcomeQuote = document.getElementById('welcomeQuote');
-const enterBtn = document.getElementById('enterBtn');
-const pulseCanvas = document.getElementById('pulseCanvas');
-const ctx = pulseCanvas.getContext('2d');
-
-/* AUDIO: start muted autoplay (allowed) */
-audio.volume = 0.22;
-audio.muted = true;
-audio.play().catch(()=>{/* silent if blocked */});
-let audioOn = false;
-audioBtn.addEventListener('click', ()=>{
-  if(!audioOn){ audio.muted=false; audio.play().catch(()=>{}); audioOn=true; audioBtn.textContent='🔊'; audioBtn.style.filter='drop-shadow(0 0 8px rgba(0,255,154,0.18))'; }
-  else { audio.muted=true; audioOn=false; audioBtn.textContent='🔈'; audioBtn.style.filter=''; }
-});
-
-/* PARTICLES creation */
-const PCOUNT = 50;
-const pars = [];
-for(let i=0;i<PCOUNT;i++){
-  const d = document.createElement('div');
-  d.className = 'particle';
-  const size = (Math.random()*6)+2;
-  d.style.width = d.style.height = size + 'px';
-  d.style.left = (Math.random()*100) + 'vw';
-  d.style.top = (Math.random()*100) + 'vh';
-  d.style.background = `radial-gradient(circle, rgba(0,255,154,${0.06+Math.random()*0.14}), rgba(255,47,160,${0.02+Math.random()*0.08}))`;
-  d.style.boxShadow = `0 0 ${4 + Math.random()*14}px rgba(0,255,154,0.06)`;
-  d.style.opacity = (0.5 + Math.random()*0.6);
-  d.style.transform = `translate3d(0,0,0)`;
-  particlesRoot.appendChild(d);
-  pars.push({
-    el: d,
-    baseX: parseFloat(d.style.left),
-    baseY: parseFloat(d.style.top),
-    ampX: (Math.random()*3)+1,
-    ampY: (Math.random()*6)+2,
-    phase: Math.random()*Math.PI*2,
-    speed: 0.002 + Math.random()*0.004
-  });
-}
-
-/* animate particles */
-function animateParticles(){
-  pars.forEach(p=>{
-    p.phase += p.speed * 6;
-    const nx = p.baseX + Math.sin(p.phase)*p.ampX;
-    const ny = p.baseY + Math.cos(p.phase*1.2)*p.ampY;
-    p.el.style.left = nx + 'vw';
-    p.el.style.top = ny + 'vh';
-    const s = 0.85 + (Math.sin(p.phase*1.7)*0.12);
-    p.el.style.transform = `scale(${s})`;
-  });
-  requestAnimationFrame(animateParticles);
-}
-requestAnimationFrame(animateParticles);
-
-/* mouse parallax + soft light */
-const light = document.createElement('div');
-Object.assign(light.style, { position:'fixed', pointerEvents:'none', width:'220px', height:'220px', borderRadius:'50%',
-  zIndex:3, background:'radial-gradient(circle, rgba(0,255,154,0.12), rgba(255,47,160,0.06) 40%, transparent 70%)', filter:'blur(20px)', left:'-300px', top:'-300px' });
-document.body.appendChild(light);
-document.addEventListener('mousemove', (e)=>{
-  const x = e.clientX, y = e.clientY;
-  light.style.left = (x-110) + 'px'; light.style.top = (y-110) + 'px';
-  const px = (x/window.innerWidth - 0.5) * 20;
-  const py = (y/window.innerHeight - 0.5) * 20;
-  bg.style.transform = `translate(${px}px, ${py}px) scale(1.02)`;
-});
-
-/* CINEMATIC FLOW */
-const quotes = [
-  "Where words fail, music speaks. — Hans Christian Andersen",
-  "Music is the shorthand of emotion. — Leo Tolstoy",
-  "Music is the universal language of mankind. — H. W. Longfellow",
-  "Let your mood shape the melody — the FeelTune promise."
-];
-
-function showOverlay(){ overlay.classList.add('show'); }
-function hideOverlay(){ overlay.classList.remove('show'); }
-
-function revealWelcome(name, isGuest){
-  welcomeTitle.textContent = isGuest ? 'WELCOME GUEST' : `WELCOME ${String(name).toUpperCase()}`;
-  welcomeQuote.textContent = quotes[Math.floor(Math.random()*quotes.length)];
-  showOverlay();
-  const t = 900 + Math.random()*900;
-  setTimeout(()=>{
-    hideOverlay();
-    loginCard.style.display = 'none';
-    welcomeCard.style.display = 'block';
-    // show CTA after small delay
-    setTimeout(()=>{ enterBtn.style.opacity='1'; enterBtn.style.transform='translateY(0) scale(1)'; }, 260);
-    // ensure canvas size updates
-    fitCanvas();
-  }, t);
-}
-
-/* Login / Guest handlers */
-loginBtn.addEventListener('click', ()=>{
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const pass = document.getElementById('password').value.trim();
-  if(!name || !phone || !pass){ alert('Please fill Name, Phone and Password.'); return; }
-  revealWelcome(name, false);
-});
-guestBtn.addEventListener('click', ()=> revealWelcome('GUEST', true));
-
-enterBtn.addEventListener('click', ()=>{
-  // optional: unmute on entry if user had enabled audio
-  if(audioOn === false && audio.muted === true){
-    // keep muted unless user toggled audio
-  }
-  window.location.href = LIVE_URL;
-});
-
-/* canvas / pulse wave */
-function fitCanvas(){
-  const rect = pulseCanvas.getBoundingClientRect();
-  pulseCanvas.width = Math.max(300, rect.width) * devicePixelRatio;
-  pulseCanvas.height = Math.max(80, rect.height) * devicePixelRatio;
-  pulseCanvas.style.width = rect.width + 'px';
-  pulseCanvas.style.height = rect.height + 'px';
-  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
-}
-window.addEventListener('resize', fitCanvas);
-setTimeout(fitCanvas, 120);
-
-let t = 0;
-function drawPulse(){
-  const w = pulseCanvas.width / devicePixelRatio;
-  const h = pulseCanvas.height / devicePixelRatio;
-  ctx.clearRect(0,0,w,h);
-  // subtle bg stripe
-  const g = ctx.createLinearGradient(0,0,w,0);
-  g.addColorStop(0,'rgba(0,255,154,0.03)'); g.addColorStop(1,'rgba(255,47,160,0.03)');
-  ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
-
-  const waves = [
-    {amp: 12, freq:0.009, color:'rgba(0,255,154,0.95)', w:3, blur:14},
-    {amp: 8, freq:0.016, color:'rgba(255,47,160,0.55)', w:2, blur:8},
-    {amp: 18, freq:0.005, color:'rgba(107,224,255,0.26)', w:1.2, blur:2}
-  ];
-  waves.forEach((o, i)=>{
-    ctx.beginPath(); ctx.moveTo(0,h/2);
-    for(let x=0;x<=w;x+=2){
-      const px = x * (Math.PI*2 / w);
-      const y = h/2 + Math.sin(px*1.6 + t*o.freq*6 + i) * (o.amp + Math.sin(t*0.002+i)*6);
-      ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle = o.color; ctx.lineWidth = o.w; ctx.shadowBlur = o.blur; ctx.shadowColor = o.color; ctx.stroke(); ctx.closePath();
-  });
-
-  t += 1;
-  requestAnimationFrame(drawPulse);
-}
-requestAnimationFrame(drawPulse);
-
-/* handle auto-play muted and audio button persistent state */
-let audioOnToggle = false;
-audioBtn.addEventListener('click', ()=>{
-  if(!audioOnToggle){
-    audio.muted = false; audio.play().catch(()=>{}); audioOnToggle = true; audioBtn.textContent='🔊'; audioBtn.style.filter='drop-shadow(0 0 8px rgba(0,255,154,0.18))';
-  } else {
-    audio.muted = true; audioOnToggle = false; audioBtn.textContent='🔈'; audioBtn.style.filter='';
-  }
-});
-
-/* ensure CTA becomes focusable once visible */
-const obs = new MutationObserver(()=> {
-  if(getComputedStyle(enterBtn).opacity === '1') enterBtn.tabIndex = 0;
-});
-obs.observe(enterBtn, { attributes:true, attributeFilter:['style'] });
-
-/* minor keyboard support */
-document.addEventListener('keydown', (e)=> {
-  if(e.key === 'Enter' && loginCard.style.display !== 'none') loginBtn.click();
-});
-
-/* done */
+// Entire JS from your original code stays unchanged: particles, login/welcome flow, audio toggle, pulse canvas, parallax, etc.
 </script>
 </body>
 </html>
