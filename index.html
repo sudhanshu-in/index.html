@@ -4,10 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>FeelTune AI Cyberpunk Realm</title>
-
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 :root{ --bg-deep:#05060a; }
 *{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -27,8 +24,8 @@ input{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.0
 input:focus{border-color:rgba(0,255,154,0.7);box-shadow:0 8px 30px rgba(0,255,154,0.06);transform:translateY(-1px);}
 
 /* Buttons */
-.btn{margin-top:12px;padding:12px 16px;border-radius:12px;border:0;background:linear-gradient(90deg, rgba(0,255,154,0.95), rgba(255,47,160,0.95));color:#021;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(0,255,154,0.06);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
-.btn:hover{transform:translateY(-4px);box-shadow:0 18px 70px rgba(0,255,154,0.12),0 6px 26px rgba(255,47,160,0.06);}
+.btn{margin-top:12px;padding:12px 16px;border-radius:12px;border:0;background:linear-gradient(90deg, rgba(0,255,240,0.95), rgba(160,0,255,0.95));color:#021;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(0,255,240,0.06);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.btn:hover{transform:translateY(-4px);box-shadow:0 18px 70px rgba(0,255,240,0.12),0 6px 26px rgba(160,0,255,0.06);}
 .guest{margin-top:10px;padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(0,255,154,0.18);color:#00fff0;cursor:pointer;}
 .guest:hover{background:rgba(0,255,154,0.06);color:#dfffee;}
 
@@ -61,7 +58,6 @@ input:focus{border-color:rgba(0,255,154,0.7);box-shadow:0 8px 30px rgba(0,255,15
 @media(max-width:640px){.card{width:92vw;padding:18px}#welcomeCard{width:92vw;padding:16px}.pulse-wrap{height:88px}#welcomeTitle{font-size:1.4rem}}
 </style>
 </head>
-
 <body>
 <div class="bg" id="bg"></div>
 <div class="grain"></div>
@@ -105,87 +101,43 @@ input:focus{border-color:rgba(0,255,154,0.7);box-shadow:0 8px 30px rgba(0,255,15
 </audio>
 
 <script>
-// ---------------- SMOOTH GRADIENT ----------------
+// ---------- Gradient Animation ----------
 const bg = document.getElementById('bg');
-let hue=220;
-function updateGradient(){
-  hue+=0.15;if(hue>360)hue-=360;
-  const c1=`hsl(${hue},60%,10%)`;
-  const c2=`hsl(${(hue+40)%360},70%,15%)`;
-  const c3=`hsl(${(hue+80)%360},50%,12%)`;
-  bg.style.background=`linear-gradient(120deg, ${c1}, ${c2}, ${c3})`;
-  requestAnimationFrame(updateGradient);
+let hue = 220;
+function animateBG(){
+  hue += 0.15;
+  bg.style.background = `linear-gradient(120deg, hsl(${hue},60%,12%), hsl(${(hue+40)%360},60%,15%), hsl(${(hue+80)%360},60%,18%))`;
+  requestAnimationFrame(animateBG);
 }
-requestAnimationFrame(updateGradient);
+animateBG();
 
-// ---------------- AUDIO TOGGLE ----------------
-const audio=document.getElementById('bgAudio'), audioBtn=document.getElementById('audioBtn');
-audio.volume=0.22; audio.muted=true; audio.play().catch(()=>{});
-let audioOn=false;
-audioBtn.addEventListener('click', ()=>{
-  audioOn=!audioOn;
-  audio.muted=!audioOn;
-  audioBtn.textContent=audioOn?'🔊':'🔈';
-  audioBtn.style.filter=audioOn?'drop-shadow(0 0 8px rgba(0,255,154,0.18))':'';
-});
-
-// ---------------- PARTICLES ----------------
-const particlesRoot=document.getElementById('particles'), PCOUNT=50, pars=[];
-for(let i=0;i<PCOUNT;i++){
-  const d=document.createElement('div'); d.className='particle';
-  const size=(Math.random()*6)+2;
-  d.style.width=d.style.height=size+'px';
-  d.style.left=(Math.random()*100)+'vw';
-  d.style.top=(Math.random()*100)+'vh';
-  d.style.background=`radial-gradient(circle, rgba(0,255,154,${0.06+Math.random()*0.14}), rgba(255,47,160,${0.02+Math.random()*0.08}))`;
-  d.style.boxShadow=`0 0 ${4+Math.random()*14}px rgba(0,255,154,0.06)`;
-  d.style.opacity=(0.5+Math.random()*0.6);
-  particlesRoot.appendChild(d);
-  pars.push({el:d,baseX:parseFloat(d.style.left),baseY:parseFloat(d.style.top),ampX:(Math.random()*3)+1,ampY:(Math.random()*6)+2,phase:Math.random()*Math.PI*2,speed:0.002+Math.random()*0.004});
-}
+// ---------- Rest of JS: Particles, Login, Welcome, Pulse ----------
+const PCOUNT=50,pars=[];const particlesRoot=document.getElementById('particles');for(let i=0;i<PCOUNT;i++){const d=document.createElement('div');d.className='particle';const size=(Math.random()*6)+2;d.style.width=d.style.height=size+'px';d.style.left=(Math.random()*100)+'vw';d.style.top=(Math.random()*100)+'vh';d.style.background=`radial-gradient(circle, rgba(0,255,154,${0.06+Math.random()*0.14}), rgba(255,47,160,${0.02+Math.random()*0.08}))`;d.style.boxShadow=`0 0 ${4+Math.random()*14}px rgba(0,255,154,0.06)`;d.style.opacity=(0.5+Math.random()*0.6);particlesRoot.appendChild(d);pars.push({el:d,baseX:parseFloat(d.style.left),baseY:parseFloat(d.style.top),ampX:(Math.random()*3)+1,ampY:(Math.random()*6)+2,phase:Math.random()*Math.PI*2,speed:0.002+Math.random()*0.004});}
 function animateParticles(){pars.forEach(p=>{p.phase+=p.speed*6;const nx=p.baseX+Math.sin(p.phase)*p.ampX;const ny=p.baseY+Math.cos(p.phase*1.2)*p.ampY;p.el.style.left=nx+'vw';p.el.style.top=ny+'vh';const s=0.85+(Math.sin(p.phase*1.7)*0.12);p.el.style.transform=`scale(${s})`;});requestAnimationFrame(animateParticles);}
 requestAnimationFrame(animateParticles);
 
-// ---------------- MOUSE PARALLAX ----------------
-const light=document.createElement('div');
-Object.assign(light.style,{position:'fixed',pointerEvents:'none',width:'220px',height:'220px',borderRadius:'50%',zIndex:3,background:'radial-gradient(circle, rgba(0,255,154,0.12), rgba(255,47,160,0.06) 40%, transparent 70%)',filter:'blur(20px)',left:'-300px',top:'-300px'});
-document.body.appendChild(light);
-document.addEventListener('mousemove',(e)=>{const x=e.clientX,y=e.clientY;light.style.left=(x-110)+'px';light.style.top=(y-110)+'px';const px=(x/window.innerWidth-0.5)*20,py=(y/window.innerHeight-0.5)*20;bg.style.transform=`translate(${px}px,${py}px) scale(1.02)`});
+// ---------- Mouse Parallax ----------
+const light=document.createElement('div');Object.assign(light.style,{position:'fixed',pointerEvents:'none',width:'220px',height:'220px',borderRadius:'50%',zIndex:3,background:'radial-gradient(circle, rgba(0,255,154,0.12), rgba(255,47,160,0.06) 40%, transparent 70%)',filter:'blur(20px)',left:'-300px',top:'-300px'});document.body.appendChild(light);document.addEventListener('mousemove',(e)=>{const x=e.clientX,y=e.clientY;light.style.left=(x-110)+'px';light.style.top=(y-110)+'px';const px=(x/window.innerWidth-0.5)*20,py=(y/window.innerHeight-0.5)*20;bg.style.transform=`translate(${px}px,${py}px) scale(1.02)`;});
 
-// ---------------- LOGIN / WELCOME ----------------
+// ---------- Audio ----------
+const audio=document.getElementById('bgAudio'),audioBtn=document.getElementById('audioBtn');audio.volume=0.22;audio.muted=true;audio.play().catch(()=>{});let audioOn=false;audioBtn.addEventListener('click',()=>{if(!audioOn){audio.muted=false;audio.play().catch(()=>{});audioOn=true;audioBtn.textContent='🔊';audioBtn.style.filter='drop-shadow(0 0 8px rgba(0,255,154,0.18))';}else{audio.muted=true;audioOn=false;audioBtn.textContent='🔈';audioBtn.style.filter='';}});
+
+// ---------- Login / Welcome ----------
 const loginCard=document.getElementById('loginCard'),loginBtn=document.getElementById('loginBtn'),guestBtn=document.getElementById('guestBtn'),overlay=document.getElementById('overlay'),welcomeCard=document.getElementById('welcomeCard'),welcomeTitle=document.getElementById('welcomeTitle'),welcomeQuote=document.getElementById('welcomeQuote'),enterBtn=document.getElementById('enterBtn');
 const quotes=["Where words fail, music speaks. — Hans Christian Andersen","Music is the shorthand of emotion. — Leo Tolstoy","Music is the universal language of mankind. — H. W. Longfellow","Let your mood shape the melody — the FeelTune promise."];
-
 function showOverlay(){overlay.classList.add('show');}
 function hideOverlay(){overlay.classList.remove('show');}
-function revealWelcome(name,isGuest){
-  welcomeTitle.textContent=isGuest?'WELCOME GUEST':`WELCOME ${String(name).toUpperCase()}`;
-  welcomeQuote.textContent=quotes[Math.floor(Math.random()*quotes.length)];
-  showOverlay();
-  setTimeout(()=>{hideOverlay();loginCard.style.display='none';welcomeCard.style.display='block';enterBtn.style.opacity='1';enterBtn.style.transform='translateY(0) scale(1)';fitCanvas();},900+Math.random()*900);
-}
-loginBtn.addEventListener('click', ()=>{
-  const name=document.getElementById('name').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-  const pass=document.getElementById('password').value.trim();
-  if(!name||!phone||!pass){alert('Please fill Name, Phone and Password.');return;}
-  revealWelcome(name,false);
-});
+function revealWelcome(name,isGuest){welcomeTitle.textContent=isGuest?'WELCOME GUEST':`WELCOME ${String(name).toUpperCase()}`;welcomeQuote.textContent=quotes[Math.floor(Math.random()*quotes.length)];showOverlay();setTimeout(()=>{hideOverlay();loginCard.style.display='none';welcomeCard.style.display='block';enterBtn.style.opacity='1';enterBtn.style.transform='translateY(0) scale(1)';fitCanvas();},900+Math.random()*900);}
+loginBtn.addEventListener('click',()=>{const name=document.getElementById('name').value.trim();const phone=document.getElementById('phone').value.trim();const pass=document.getElementById('password').value.trim();if(!name||!phone||!pass){alert('Please fill Name, Phone and Password.');return;}revealWelcome(name,false);});
 guestBtn.addEventListener('click',()=>revealWelcome('GUEST',true));
 enterBtn.addEventListener('click',()=>{if(!audioOn&&audio.muted){};window.location.href='https://splenic-unavid-marinda.ngrok-free.dev';});
 
-// ---------------- PULSE CANVAS ----------------
+// ---------- Pulse Canvas ----------
 const pulseCanvas=document.getElementById('pulseCanvas'),ctx=pulseCanvas.getContext('2d');
 function fitCanvas(){const rect=pulseCanvas.getBoundingClientRect();pulseCanvas.width=Math.max(300,rect.width)*devicePixelRatio;pulseCanvas.height=Math.max(80,rect.height)*devicePixelRatio;pulseCanvas.style.width=rect.width+'px';pulseCanvas.style.height=rect.height+'px';ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
 window.addEventListener('resize',fitCanvas);setTimeout(fitCanvas,120);
 let t=0;
-function drawPulse(){
-  const w=pulseCanvas.width/devicePixelRatio,h=pulseCanvas.height/devicePixelRatio;ctx.clearRect(0,0,w,h);
-  const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,255,154,0.03)');g.addColorStop(1,'rgba(255,47,160,0.03)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
-  const waves=[{amp:12,freq:0.009,color:'rgba(0,255,154,0.95)',w:3,blur:14},{amp:8,freq:0.016,color:'rgba(255,47,160,0.55)',w:2,blur:8},{amp:18,freq:0.005,color:'rgba(107,224,255,0.26)',w:1.2,blur:2}];
-  waves.forEach((o,i)=>{ctx.beginPath();ctx.moveTo(0,h/2);for(let x=0;x<=w;x+=2){const px=x*(Math.PI*2/w);const y=h/2+Math.sin(px*1.6+t*o.freq*6+i)*(o.amp+Math.sin(t*0.002+i)*6);ctx.lineTo(x,y);}ctx.strokeStyle=o.color;ctx.lineWidth=o.w;ctx.shadowBlur=o.blur;ctx.shadowColor=o.color;ctx.stroke();ctx.closePath();});
-  t+=1;requestAnimationFrame(drawPulse);
-}
+function drawPulse(){const w=pulseCanvas.width/devicePixelRatio,h=pulseCanvas.height/devicePixelRatio;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,255,154,0.03)');g.addColorStop(1,'rgba(255,47,160,0.03)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);const waves=[{amp:12,freq:0.009,color:'rgba(0,255,154,0.95)',w:3,blur:14},{amp:8,freq:0.016,color:'rgba(255,47,160,0.55)',w:2,blur:8},{amp:18,freq:0.005,color:'rgba(107,224,255,0.26)',w:1.2,blur:2}];waves.forEach((o,i)=>{ctx.beginPath();ctx.moveTo(0,h/2);for(let x=0;x<=w;x+=2){const px=x*(Math.PI*2/w);const y=h/2+Math.sin(px*1.6+t*o.freq*6+i)*(o.amp+Math.sin(t*0.002+i)*6);ctx.lineTo(x,y);}ctx.strokeStyle=o.color;ctx.lineWidth=o.w;ctx.shadowBlur=o.blur;ctx.shadowColor=o.color;ctx.stroke();ctx.closePath();});t+=1;requestAnimationFrame(drawPulse);}
 requestAnimationFrame(drawPulse);
 </script>
 </body>
