@@ -1,9 +1,9 @@
-streamlit
-fer
-opencv-python-headless
-pandas
+streamlit==1.39.0
+fer==22.5.1
+opencv-python-headless==4.10.0.84
+pandas==2.2.2
 numpy==1.26.4
-moviepy
-pillow
-torch
-torchvision
+moviepy==1.0.3
+pillow==10.3.0
+torch==2.2.2
+torchvision==0.17.2
