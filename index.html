@@ -28,10 +28,10 @@ input{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.0
 input:focus{border-color:rgba(127,207,255,0.7);box-shadow:0 8px 30px rgba(127,207,255,0.06);transform:translateY(-1px);}
 
 /* Buttons */
-.btn{margin-top:12px;padding:12px 16px;border-radius:12px;border:0;background:linear-gradient(90deg, rgba(0,128,255,0.95), rgba(0,64,192,0.95));color:#021;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(0,128,255,0.06);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
-.btn:hover{transform:translateY(-4px);box-shadow:0 18px 70px rgba(0,128,255,0.12),0 6px 26px rgba(0,64,192,0.06);}
-.guest{margin-top:10px;padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(0,128,255,0.18);color:#7fcfff;cursor:pointer;}
-.guest:hover{background:rgba(0,128,255,0.06);color:#c0e0ff;}
+.btn{margin-top:12px;padding:12px 16px;border-radius:12px;border:0;background:linear-gradient(90deg, rgba(0,128,255,0.95), rgba(0,64,192,0.95));color:#fff;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(0,128,255,0.4);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.btn:hover{transform:translateY(-4px);box-shadow:0 18px 70px rgba(0,128,255,0.6),0 6px 26px rgba(0,64,192,0.4);}
+.guest{margin-top:10px;padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(0,128,255,0.5);color:#7fcfff;cursor:pointer;}
+.guest:hover{background:rgba(0,128,255,0.1);color:#c0e0ff;}
 
 /* Overlay */
 .overlay{position:fixed;inset:0;z-index:9;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.75),rgba(0,0,0,0.52));visibility:hidden;opacity:0;transition:opacity .28s,visibility .28s;}
@@ -40,12 +40,12 @@ input:focus{border-color:rgba(127,207,255,0.7);box-shadow:0 8px 30px rgba(127,20
 
 /* Welcome */
 #welcomeCard{display:none;width:540px;max-width:94vw;padding:26px;border-radius:14px;background:rgba(10,10,30,0.72);border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 80px rgba(0,0,128,0.25);backdrop-filter:blur(18px);text-align:center;color:#a0cfff;}
-#welcomeTitle{font-size:2.0rem;margin-bottom:6px;font-family: 'Orbitron',sans-serif;color:#7fcfff;text-shadow:0 0 6px rgba(127,207,255,0.5),0 0 12px rgba(0,128,255,0.3);}
+#welcomeTitle{font-size:2.0rem;margin-bottom:12px;font-family: 'Orbitron',sans-serif;color:#7fcfff;text-shadow:0 0 6px rgba(127,207,255,0.5),0 0 12px rgba(0,128,255,0.3);}
 .welcome-quote{margin-top:10px;color:rgba(255,255,255,0.92);font-style:italic;max-width:520px;margin-left:auto;margin-right:auto;}
 
 /* Pulse & CTA */
-.pulse-wrap{margin:18px auto 8px;width:86%;max-width:460px;height:120px;border-radius:10px;overflow:hidden;display:block;}
-.cta{margin-top:18px;padding:14px 22px;border-radius:14px;cursor:pointer;border:0;background:linear-gradient(90deg, rgba(0,128,255,0.88), rgba(0,64,192,0.88));color:#021;font-weight:800;font-size:1.05rem;transition:box-shadow .3s ease,transform .18s ease;opacity:0;transform:translateY(8px) scale(.995);}
+.pulse-wrap{margin:12px auto 8px;width:86%;max-width:460px;height:100px;border-radius:10px;overflow:hidden;display:block;}
+.cta{margin-top:18px;padding:14px 22px;border-radius:14px;cursor:pointer;border:0;background:linear-gradient(90deg, rgba(0,128,255,0.88), rgba(0,64,192,0.88));color:#fff;font-weight:800;font-size:1.05rem;transition:box-shadow .3s ease,transform .18s ease;opacity:0;transform:translateY(8px) scale(.995);}
 @keyframes breathe{0%{box-shadow:0 8px 30px rgba(0,128,255,0.06);transform:translateY(0) scale(1);}50%{box-shadow:0 18px 60px rgba(0,64,192,0.12);transform:translateY(-2px) scale(1.02);}100%{box-shadow:0 8px 30px rgba(0,128,255,0.06);transform:translateY(0) scale(1);}}
 .cta.idle{animation:breathe 2400ms ease-in-out infinite;text-shadow:0 0 16px rgba(0,128,255,0.6),0 0 32px rgba(0,64,192,0.4);}
 .cta:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 30px 120px rgba(0,64,192,0.14);}
@@ -72,6 +72,7 @@ input:focus{border-color:rgba(127,207,255,0.7);box-shadow:0 8px 30px rgba(127,20
 </div>
 
 <div class="stage">
+  <!-- Login card -->
   <div class="card" id="loginCard">
     <div class="title">Welcome to the FeelTune AI Realm</div>
     <div class="inputs">
@@ -83,10 +84,14 @@ input:focus{border-color:rgba(127,207,255,0.7);box-shadow:0 8px 30px rgba(127,20
     <button class="guest" id="guestBtn">Continue as Guest</button>
   </div>
 
+  <!-- Welcome card -->
   <div id="welcomeCard">
     <div id="welcomeTitle">WELCOME</div>
+    <!-- Music wave / pulse -->
+    <div class="pulse-wrap">
+      <canvas id="pulseCanvas"></canvas>
+    </div>
     <div class="welcome-quote" id="welcomeQuote">Tuning your vibe...</div>
-    <div class="pulse-wrap"><canvas id="pulseCanvas"></canvas></div>
     <button id="enterBtn" class="cta idle">Enter FeelTune AI Experience →</button>
   </div>
 </div>
@@ -105,7 +110,106 @@ input:focus{border-color:rgba(127,207,255,0.7);box-shadow:0 8px 30px rgba(127,20
 </audio>
 
 <script>
-// ---------- Background dark blue gradient ----------
+// ---------- Background gradient ----------
 const bgEl = document.getElementById('bg'); let hue=220;
-function animateBG(){hue+=0.05; bgEl.style.background=`linear-gradient(120deg, hsl(${hue},40%,12%), hsl(${(hue+20)%360},40%,15%), hsl(${(hue+40)%360},40%,18%))`; requestAnimationFrame(animateBG);}
-animateBG
+function animateBG(){hue+=0.03; bgEl.style.background=`linear-gradient(120deg, hsl(${hue},40%,12%), hsl(${(hue+20)%360},40%,15%), hsl(${(hue+40)%360},40%,18%))`; requestAnimationFrame(animateBG);}
+animateBG();
+
+// ---------- Particles ----------
+const particlesRoot = document.getElementById('particles'); const pars = [];
+const PCOUNT=60;
+for(let i=0;i<PCOUNT;i++){
+  const d=document.createElement('div'); d.className='particle';
+  const size=(Math.random()*6)+2;
+  d.style.width=d.style.height=size+'px';
+  d.style.left=(Math.random()*100)+'vw';
+  d.style.top=(Math.random()*100)+'vh';
+  const h=220+Math.random()*40;
+  d.style.background=`radial-gradient(circle, hsl(${h},60%,60%) 0%, hsl(${h},60%,30%) 100%)`;
+  d.style.boxShadow=`0 0 ${4+Math.random()*14}px rgba(0,128,255,0.3)`;
+  d.style.opacity=(0.3+Math.random()*0.5);
+  particlesRoot.appendChild(d);
+  pars.push({el:d,baseX:parseFloat(d.style.left),baseY:parseFloat(d.style.top),ampX:(Math.random()*3)+1,ampY:(Math.random()*6)+2,phase:Math.random()*Math.PI*2,speed:0.001+Math.random()*0.003,hue:h});
+}
+function animateParticles(){
+  pars.forEach(p=>{
+    p.phase+=p.speed*6;
+    const nx=p.baseX+Math.sin(p.phase)*p.ampX;
+    const ny=p.baseY+Math.cos(p.phase*1.2)*p.ampY;
+    p.el.style.left=nx+'vw';
+    p.el.style.top=ny+'vh';
+    p.hue+=0.1;
+    p.el.style.background=`radial-gradient(circle, hsl(${p.hue},60%,60%) 0%, hsl(${p.hue},60%,30%) 100%)`;
+    const s=0.85+(Math.sin(p.phase*1.7)*0.12);
+    p.el.style.transform=`scale(${s})`;
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ---------- Audio ----------
+const audio=document.getElementById('bgAudio'); let audioOn=false;
+audio.volume=0.22; audio.muted=true; audio.play().catch(()=>{});
+const audioBtn=document.getElementById('audioBtn');
+audioBtn.addEventListener('click',()=>{
+  audioOn=!audioOn;
+  audio.muted=!audioOn;
+  audio.play().catch(()=>{});
+  audioBtn.textContent=audioOn?'🔊':'🔈';
+});
+
+// ---------- Login / Guest ----------
+const loginCard=document.getElementById('loginCard');
+const loginBtn=document.getElementById('loginBtn');
+const guestBtn=document.getElementById('guestBtn');
+const overlay=document.getElementById('overlay');
+const welcomeCard=document.getElementById('welcomeCard');
+const welcomeTitle=document.getElementById('welcomeTitle');
+const welcomeQuote=document.getElementById('welcomeQuote');
+const enterBtn=document.getElementById('enterBtn');
+
+const quotes=[
+  "Where words fail, music speaks. — H. C. Andersen",
+  "Music is the shorthand of emotion. — L. Tolstoy",
+  "Music is the universal language of mankind. — H. W. Longfellow",
+  "Let your mood shape the melody — FeelTune promise."
+];
+
+function showOverlay(){overlay.classList.add('show');}
+function hideOverlay(){overlay.classList.remove('show');}
+function revealWelcome(name,isGuest){
+  welcomeTitle.textContent=isGuest?'WELCOME GUEST':`WELCOME ${name.toUpperCase()}`;
+  welcomeQuote.textContent=quotes[Math.floor(Math.random()*quotes.length)];
+  showOverlay();
+  setTimeout(()=>{hideOverlay(); loginCard.style.display='none'; welcomeCard.style.display='block'; setTimeout(()=>{enterBtn.style.opacity='1'; enterBtn.style.transform='translateY(0) scale(1)'; fitCanvas();},260);},1000);
+}
+
+loginBtn.addEventListener('click',()=>{
+  const name=document.getElementById('name').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const pass=document.getElementById('password').value.trim();
+  if(!name||!phone||!pass){alert('Please fill Name, Phone and Password.');return;}
+  revealWelcome(name,false);
+});
+guestBtn.addEventListener('click',()=>revealWelcome('GUEST',true));
+
+enterBtn.addEventListener('click',()=>{window.location.href='#';});
+
+// ---------- Pulse Canvas ----------
+const pulseCanvas=document.getElementById('pulseCanvas'); const ctx=pulseCanvas.getContext('2d');
+function fitCanvas(){const rect=pulseCanvas.getBoundingClientRect();pulseCanvas.width=Math.max(300,rect.width)*devicePixelRatio;pulseCanvas.height=Math.max(80,rect.height)*devicePixelRatio;pulseCanvas.style.width=rect.width+'px';pulseCanvas.style.height=rect.height+'px';ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
+window.addEventListener('resize',fitCanvas); setTimeout(fitCanvas,120);
+
+let t=0;
+function drawPulse(){const w=pulseCanvas.width/devicePixelRatio;const h=pulseCanvas.height/devicePixelRatio;ctx.clearRect(0,0,w,h);
+const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,128,255,0.03)');g.addColorStop(1,'rgba(0,64,192,0.03)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+const waves=[{amp:12,freq:0.009,color:'rgba(0,128,255,0.95)',w:3,blur:14},{amp:8,freq:0.016,color:'rgba(0,64,192,0.55)',w:2,blur:8},{amp:18,freq:0.005,color:'rgba(0,100,220,0.26)',w:1.2,blur:2}];
+waves.forEach((o,i)=>{ctx.beginPath();ctx.moveTo(0,h/2);for(let x=0;x<=w;x+=2){const px=x*(Math.PI*2/w);const y=h/2+Math.sin(px*1.6+t*o.freq*6+i)*(o.amp+Math.sin(t*0.002+i)*6);ctx.lineTo(x,y);}ctx.strokeStyle=o.color;ctx.lineWidth=o.w;ctx.shadowBlur=o.blur;ctx.shadowColor=o.color;ctx.stroke();ctx.closePath();});
+t+=1;requestAnimationFrame(drawPulse);}
+drawPulse();
+
+// ---------- Keyboard support ----------
+document.addEventListener('keydown',(e)=>{if(e.key==='Enter'&&loginCard.style.display!=='none')loginBtn.click();});
+</script>
+</body>
+</html>
